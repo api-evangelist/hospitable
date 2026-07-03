@@ -1,0 +1,62 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Hospitable
+providerId: hospitable
+created: '2026-07-03'
+modified: '2026-07-03'
+reconciled: false
+tags:
+- Vacation Rental
+- Short-Term Rental
+- Property Management
+- Rate Limiting
+- Quotas
+description: >-
+  Hospitable applies rate limiting to the Public API v2 but does not publish
+  fixed numeric per-endpoint request ceilings in its public documentation.
+  Requests that exceed the limit receive an HTTP 429 (Too Many Requests)
+  response, and community SDKs implement automatic client-side rate limiting and
+  back-off around the API. Callers should read any RateLimit / Retry-After
+  response headers, throttle proactively, and page through large collections
+  rather than polling aggressively. Webhooks provide a push alternative to
+  polling for reservation, property, message, and review changes and are the
+  recommended way to stay in sync without hitting request limits.
+notes: >-
+  No numeric per-minute or per-hour request-rate limit is documented publicly as
+  of the review date. Verify current limits and any documented response headers
+  in the developer portal. Webhook deliveries are retried up to five times with
+  exponential back-off (1 sec, 5 sec, 10 sec, 1 hr, 6 hr) and originate from the
+  IP range 38.80.170.0/24.
+sources:
+- https://developer.hospitable.com/docs/public-api-docs/d862b3ee512e6-introduction
+- https://developer.hospitable.com/docs/public-api-docs/6a0626f943b78-http-responses
+- https://help.hospitable.com/en/articles/10008203-webhooks-for-reservations-properties-messages-and-reviews
+responseCodes:
+  throttled: 429
+limits:
+- name: Public API Requests
+  scope: account
+  metric: requests
+  limit: not published
+  notes: A rate limit is enforced and returns HTTP 429, but no fixed numeric ceiling is documented publicly.
+- name: Personal Access Token Scope
+  scope: token
+  metric: requests
+  limit: all endpoints
+  notes: PATs have access to all Public API endpoints by default and are scoped to a single Hospitable account.
+- name: Webhook Delivery Retries
+  scope: endpoint
+  metric: attempts
+  limit: 5
+  notes: Failed webhook deliveries are retried up to 5 times with exponential back-off (1 sec, 5 sec, 10 sec, 1 hr, 6 hr).
+policies:
+- name: Throttling Response
+  description: Requests beyond the allowed rate receive an HTTP 429 response; clients should honor Retry-After where present.
+- name: Backoff Strategy
+  description: Clients should implement exponential back-off with jitter on 429 responses; community SDKs handle this automatically.
+- name: Prefer Webhooks Over Polling
+  description: Use v2 webhooks for reservation, property, message, and review changes instead of frequent polling to avoid rate limits.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

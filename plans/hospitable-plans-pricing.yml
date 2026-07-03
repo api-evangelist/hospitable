@@ -1,0 +1,176 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Hospitable
+providerId: hospitable
+created: '2026-07-03'
+modified: '2026-07-03'
+reconciled: false
+tags:
+- Vacation Rental
+- Short-Term Rental
+- Property Management
+- Subscription
+- Per Property
+- Plans
+description: >-
+  Hospitable is sold as a SaaS subscription priced primarily per property per
+  month, not as a metered API product. The Public API v2 is a feature of the
+  paid subscription rather than a separately-billed API: API access and MCP
+  access are unlocked on the Professional plan and above. There is a free
+  Essentials tier covering a single property with core operations, and paid tiers
+  (Starter/Essentials, Professional, Mogul) that add functionality and include a
+  base number of properties with a flat per-additional-property charge. A 14-day
+  free trial of the full suite is available with no credit card. Exact monthly
+  base prices vary by plan and property count and are shown at checkout; they are
+  not reconciled here.
+notes: >-
+  Per-property list prices and the exact base fee of each paid tier are not
+  reconciled - Hospitable surfaces final pricing on the pricing page and at
+  signup based on the number of properties. Key API-relevant fact - the Public
+  API and MCP access require the Professional plan or higher. Formerly Smartbnb;
+  some third-party pricing pages still use the smartbnb slug.
+sources:
+- https://hospitable.com/pricing
+- https://hospitable.com/
+- https://developer.hospitable.com/docs/public-api-docs/
+plans:
+- id: hospitable-free
+  name: Free
+  type: free
+  description: >-
+    Free-forever plan for a single property covering core day-to-day operations
+    - multi-channel calendar sync (Airbnb, Vrbo, Booking.com, Agoda), unified
+    inbox, limited automated guest messaging, cleaning task automation, a metrics
+    dashboard, and a branded direct booking website. Does not include Public API
+    access.
+  entries:
+  - label: Included Properties
+    name: included_properties
+    type: flat
+    metric: properties
+    limit: 1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0
+    userMultiplied: false
+  elements:
+  - name: Channel Calendar Sync
+  - name: Unified Inbox
+  - name: Limited Automated Messaging
+  - name: Direct Booking Website
+- id: hospitable-essentials
+  name: Essentials
+  type: paid
+  description: >-
+    Entry paid tier that includes two properties and adds dynamic pricing
+    support, unlimited secondary users, customizable dashboards, parent-child
+    property setup, the app marketplace, and enhanced AI messaging. Additional
+    properties are billed at a flat monthly rate per property. Does not include
+    Public API access.
+  entries:
+  - label: Included Properties
+    name: included_properties
+    type: flat
+    metric: properties
+    limit: 2
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: base monthly subscription (see pricing page)
+    userMultiplied: false
+  - label: Additional Property
+    name: additional_property
+    type: usage
+    metric: properties
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $5 per additional property per month
+    userMultiplied: true
+  elements:
+  - name: Dynamic Pricing Support
+  - name: Unlimited Secondary Users
+  - name: App Marketplace
+- id: hospitable-professional
+  name: Professional
+  type: paid
+  description: >-
+    Adds Public API access and MCP access on top of Essentials, plus AI issue
+    alerts, the AI Copilot assistant, cleaner marketplace, task management, guest
+    portal, rental agreements, security deposits, and custom upsells. Includes
+    three properties with a flat per-additional-property monthly charge. This is
+    the entry tier for the Hospitable Public API.
+  entries:
+  - label: Included Properties
+    name: included_properties
+    type: flat
+    metric: properties
+    limit: 3
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: base monthly subscription (see pricing page)
+    userMultiplied: false
+  - label: Additional Property
+    name: additional_property
+    type: usage
+    metric: properties
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $5 per additional property per month
+    userMultiplied: true
+  elements:
+  - name: Public API Access
+  - name: MCP Access
+  - name: AI Copilot
+  - name: Guest Portal
+- id: hospitable-mogul
+  name: Mogul
+  type: paid
+  description: >-
+    Top tier for larger portfolios - includes unlimited properties with no
+    per-property fee, four smart devices per property, full owner relations
+    tools, tax collection and remittance, premium direct booking features, and
+    enhanced support with orientation calls. Includes Public API and MCP access.
+  entries:
+  - label: Included Properties
+    name: included_properties
+    type: flat
+    metric: properties
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: base monthly subscription (see pricing page)
+    userMultiplied: false
+  elements:
+  - name: Unlimited Properties
+  - name: Owner Relations
+  - name: Tax Collection and Remittance
+  - name: Public API Access
+- id: hospitable-trial
+  name: Free Trial
+  type: trial
+  description: >-
+    14-day free trial of the full Hospitable suite, no credit card required.
+  entries:
+  - label: Trial Period
+    name: trial_period
+    type: flat
+    metric: days
+    limit: 14
+    timeFrame: day
+    geo: global
+    unit: 1
+    price: free
+    userMultiplied: false
+  elements:
+  - name: Full Suite Access
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

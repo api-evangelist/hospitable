@@ -1,0 +1,101 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Hospitable
+providerId: hospitable
+created: '2026-07-03'
+modified: '2026-07-03'
+reconciled: false
+tags:
+- Vacation Rental
+- Short-Term Rental
+- Property Management
+- Subscription
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Hospitable spend. Hospitable bills as a monthly SaaS
+  subscription priced primarily per property, not as a metered API. The dominant
+  cost driver is the number of connected properties on the account - paid tiers
+  include a base number of properties and charge a flat monthly fee per
+  additional property. Plan tier (Essentials, Professional, Mogul) gates
+  functionality, and Public API plus MCP access require Professional or higher.
+  The Public API itself carries no separate per-call charge, so API usage does
+  not create marginal cost; cost is managed by choosing the right plan tier and
+  controlling the property count. Additional line items can include per-device
+  smart-lock automation and percentage processing fees on upsells and deposits.
+notes: >-
+  Per-property and per-tier list prices are not reconciled here; confirm on the
+  Hospitable pricing page. Because billing is per property and per plan rather
+  than per API call, cost optimization is about right-sizing the plan and the
+  active property count, not about API request volume. Formerly Smartbnb.
+sources:
+- https://hospitable.com/pricing
+- https://hospitable.com/
+- https://developer.hospitable.com/docs/public-api-docs/
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Hospitable
+serviceCategory: Vacation Rental Management Software
+billingModel:
+  pricingCategory: Subscription-Based
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Purchase
+  - Usage
+  - Adjustment
+focusColumns:
+  ServiceName: Hospitable
+  ServiceCategory: Vacation Rental Management Software
+  ProviderName: Hospitable
+  PublisherName: Hospitable
+  InvoiceIssuerName: Hospitable
+  BillingCurrency: USD
+  ChargeCategory: Purchase
+  PricingCategory: Subscription-Based
+meters:
+- name: connected_properties
+  description: Number of connected rental properties on the account - the primary per-unit subscription driver.
+  unit: properties
+  aggregation: max
+  dimensions:
+  - account
+  - plan
+- name: plan_tier
+  description: Subscription tier (Free, Essentials, Professional, Mogul) that gates features including Public API and MCP access.
+  unit: tier
+  aggregation: last
+  dimensions:
+  - account
+- name: smart_devices
+  description: Smart-lock / device automations billed per device on some tiers.
+  unit: devices
+  aggregation: sum
+  dimensions:
+  - account
+  - property
+- name: processing_fees
+  description: Percentage processing fees on custom upsells and security deposits.
+  unit: percent
+  aggregation: sum
+  dimensions:
+  - account
+principles:
+- name: Visibility
+  description: Track the number of connected properties and the current plan tier, since both determine the monthly subscription cost.
+- name: Allocation
+  description: Map property count and plan cost to owners, teams, or managed portfolios so each property's software cost is attributable.
+- name: Optimization
+  description: Right-size the plan tier to the features actually used (only go to Professional+ when Public API / MCP or its features are needed) and deactivate properties that are no longer managed to avoid per-property fees.
+- name: Accountability
+  description: Review connected-property count and add-on fees (smart devices, upsell and deposit processing) each billing cycle against expected portfolio size.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

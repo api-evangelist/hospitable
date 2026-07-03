@@ -1,0 +1,175 @@
+{
+  "info": {
+    "name": "Hospitable Public API v2",
+    "description": "Programmatic access to the Hospitable (formerly Smartbnb) short-term and vacation rental platform - properties, channel listings, reservations, guest messages, calendar availability and pricing, and reviews. Base URL: https://public.api.hospitable.com/v2. All requests require a Bearer token (a Personal Access Token or an OAuth 2.0 access token). Endpoints marked (modeled) are inferred from public docs and community SDKs; verify against developer.hospitable.com.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      { "key": "token", "value": "{{bearerToken}}", "type": "string" }
+    ]
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "https://public.api.hospitable.com/v2", "type": "string" },
+    { "key": "bearerToken", "value": "", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "Properties",
+      "item": [
+        {
+          "name": "List properties",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/properties?include=listings", "host": ["{{baseUrl}}"], "path": ["properties"], "query": [{ "key": "include", "value": "listings" }] },
+            "description": "Lists the properties connected to the authenticated account, with pagination."
+          }
+        },
+        {
+          "name": "Get a property",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/properties/:uuid", "host": ["{{baseUrl}}"], "path": ["properties", ":uuid"], "variable": [{ "key": "uuid", "value": "" }] },
+            "description": "Retrieves a single property by its UUID."
+          }
+        },
+        {
+          "name": "Search available properties (modeled)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"start_date\": \"2026-08-01\",\n  \"end_date\": \"2026-08-05\",\n  \"guests\": 2\n}" },
+            "url": { "raw": "{{baseUrl}}/properties/search", "host": ["{{baseUrl}}"], "path": ["properties", "search"] },
+            "description": "Searches connected properties for availability over a date range. Modeled endpoint - verify against the docs."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Listings",
+      "item": [
+        {
+          "name": "List channel listings",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/listings", "host": ["{{baseUrl}}"], "path": ["listings"] },
+            "description": "Lists the channel listings (Airbnb, Vrbo, Booking.com, direct) mapped to properties."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reservations",
+      "item": [
+        {
+          "name": "List reservations",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/reservations?start_date=2026-08-01&end_date=2026-08-31&include=guest,financials", "host": ["{{baseUrl}}"], "path": ["reservations"], "query": [{ "key": "start_date", "value": "2026-08-01" }, { "key": "end_date", "value": "2026-08-31" }, { "key": "include", "value": "guest,financials" }] },
+            "description": "Lists reservations across connected channels, filterable by property and date range."
+          }
+        },
+        {
+          "name": "Get a reservation",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/reservations/:uuid", "host": ["{{baseUrl}}"], "path": ["reservations", ":uuid"], "variable": [{ "key": "uuid", "value": "" }] },
+            "description": "Retrieves a single reservation by its UUID."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Messages",
+      "item": [
+        {
+          "name": "Get reservation messages",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/reservations/:uuid/messages", "host": ["{{baseUrl}}"], "path": ["reservations", ":uuid", "messages"], "variable": [{ "key": "uuid", "value": "" }] },
+            "description": "Lists the guest-host message thread for a reservation."
+          }
+        },
+        {
+          "name": "Send a message",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"body\": \"Hi! Your check-in details are ready.\"\n}" },
+            "url": { "raw": "{{baseUrl}}/reservations/:uuid/messages", "host": ["{{baseUrl}}"], "path": ["reservations", ":uuid", "messages"], "variable": [{ "key": "uuid", "value": "" }] },
+            "description": "Sends a message to the guest on a reservation; Hospitable relays it to the underlying channel."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Calendar",
+      "item": [
+        {
+          "name": "Get a property calendar",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/properties/:uuid/calendar?start_date=2026-08-01&end_date=2026-08-31", "host": ["{{baseUrl}}"], "path": ["properties", ":uuid", "calendar"], "variable": [{ "key": "uuid", "value": "" }], "query": [{ "key": "start_date", "value": "2026-08-01" }, { "key": "end_date", "value": "2026-08-31" }] },
+            "description": "Retrieves nightly availability, price, and restrictions for a property over a date range."
+          }
+        },
+        {
+          "name": "Update a property calendar (modeled)",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"dates\": [\n    {\n      \"date\": \"2026-08-10\",\n      \"available\": true,\n      \"price\": { \"amount\": 25000, \"currency\": \"USD\" },\n      \"min_nights\": 2\n    }\n  ]\n}" },
+            "url": { "raw": "{{baseUrl}}/properties/:uuid/calendar", "host": ["{{baseUrl}}"], "path": ["properties", ":uuid", "calendar"], "variable": [{ "key": "uuid", "value": "" }] },
+            "description": "Updates availability and/or pricing for dates on a property calendar. Requires write access. Modeled endpoint - verify method and body against the docs."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reviews",
+      "item": [
+        {
+          "name": "List property reviews (modeled)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/properties/:uuid/reviews", "host": ["{{baseUrl}}"], "path": ["properties", ":uuid", "reviews"], "variable": [{ "key": "uuid", "value": "" }] },
+            "description": "Lists guest reviews for a property. Modeled endpoint - verify the exact path against the docs."
+          }
+        },
+        {
+          "name": "Respond to a review (modeled)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"body\": \"Thank you for staying with us!\"\n}" },
+            "url": { "raw": "{{baseUrl}}/reviews/:uuid/response", "host": ["{{baseUrl}}"], "path": ["reviews", ":uuid", "response"], "variable": [{ "key": "uuid", "value": "" }] },
+            "description": "Posts a public host response to a guest review. Modeled endpoint - verify against the docs."
+          }
+        }
+      ]
+    },
+    {
+      "name": "User",
+      "item": [
+        {
+          "name": "Get the authenticated user (modeled)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/user", "host": ["{{baseUrl}}"], "path": ["user"] },
+            "description": "Returns the Hospitable user associated with the current token. Modeled endpoint - verify against the docs."
+          }
+        }
+      ]
+    }
+  ]
+}

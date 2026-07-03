@@ -1,0 +1,116 @@
+aid: hospitable
+name: Hospitable
+review:
+  question: Does Hospitable expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-03'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. Hospitable's own public surface is the
+    Public API v2, a request/response REST API over HTTPS, plus outbound v2
+    webhooks. Webhooks are server-to-endpoint HTTP POST callbacks (not a
+    bidirectional or client-subscribed transport), and they are configured in
+    the Hospitable dashboard (Apps > Webhooks) rather than through the API. There
+    is no WebSocket or SSE stream on Hospitable's own API to model, so no
+    AsyncAPI spec was created.
+findings:
+  summary: |
+    Hospitable does not publish a documented public WebSocket API. Hospitable
+    (formerly Smartbnb) is a short-term / vacation rental automation platform.
+    Its developer surface is the Hospitable Public API v2 at
+    https://public.api.hospitable.com/v2 - a conventional REST API using GET,
+    POST, PUT, PATCH, and DELETE over HTTPS, versioned in the URL path
+    (/v2/...), authenticated with a Bearer token that is either a Personal
+    Access Token (PAT) or an OAuth 2.0 access token. Near-real-time updates are
+    delivered by v2 webhooks: Hospitable POSTs JSON event payloads
+    (reservation.created, reservation.changed, property.created/changed/
+    deleted/merged, message.created, review.created) to a host-configured
+    endpoint, retrying up to five times with exponential back-off. No realtime,
+    bidirectional, or streaming WebSocket (ws:// or wss://) endpoint is
+    documented anywhere in Hospitable's developer documentation as of the review
+    date.
+  formerName: |
+    Hospitable was formerly named Smartbnb. Several third-party directories
+    (Capterra, GetApp, Software Advice) still reference the product under the
+    smartbnb slug.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://public.api.hospitable.com/v2
+      documented: true
+      note: Public API v2. Bearer auth via Personal Access Token or OAuth 2.0 access token.
+    - protocol: Webhook
+      scheme: https
+      documented: true
+      note: >-
+        v2 webhooks POST JSON event payloads to a host-configured endpoint.
+        Configured in the dashboard (Apps > Webhooks), not via the API. Server
+        push over HTTP, not WebSocket. Retried up to 5 times with exponential
+        back-off (1 sec, 5 sec, 10 sec, 1 hr, 6 hr); source IP range 38.80.170.0/24.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented in Hospitable's Public API v2 docs or support articles as of the review date.
+  endpointsConfirmedRest:
+    - GET  https://public.api.hospitable.com/v2/properties
+    - GET  https://public.api.hospitable.com/v2/properties/{uuid}
+    - GET  https://public.api.hospitable.com/v2/reservations
+    - GET  https://public.api.hospitable.com/v2/reservations/{uuid}
+    - GET  https://public.api.hospitable.com/v2/reservations/{uuid}/messages
+    - POST https://public.api.hospitable.com/v2/reservations/{uuid}/messages
+  endpointsModeledRest:
+    - POST https://public.api.hospitable.com/v2/properties/search
+    - GET  https://public.api.hospitable.com/v2/listings
+    - GET  https://public.api.hospitable.com/v2/properties/{uuid}/calendar
+    - PUT  https://public.api.hospitable.com/v2/properties/{uuid}/calendar
+    - GET  https://public.api.hospitable.com/v2/properties/{uuid}/reviews
+    - POST https://public.api.hospitable.com/v2/reviews/{uuid}/response
+    - GET  https://public.api.hospitable.com/v2/user
+  webhookEvents:
+    - reservation.created
+    - reservation.changed
+    - property.created
+    - property.changed
+    - property.deleted
+    - property.merged
+    - message.created
+    - review.created
+sources:
+  - url: https://developer.hospitable.com/docs/public-api-docs/d862b3ee512e6-introduction
+    type: Documentation
+    note: Introduction - REST architecture, version-in-URL (/v2/properties), GET/POST/PUT/PATCH/DELETE. No WebSocket mentioned.
+  - url: https://developer.hospitable.com/docs/public-api-docs/xpyjv51qyelmp-authentication
+    type: Documentation
+    note: Authentication - OAuth 2.0 for vendors and Personal Access Tokens for personal use, Bearer token in Authorization header.
+  - url: https://developer.hospitable.com/docs/public-api-docs/qc4x36uhxinx3-get-properties
+    type: APIReference
+    note: Get Properties - GET /v2/properties.
+  - url: https://developer.hospitable.com/docs/public-api-docs/ih7nc1ovefrcs-get-reservations
+    type: APIReference
+    note: Get Reservations - GET /v2/reservations.
+  - url: https://developer.hospitable.com/docs/public-api-docs/n6jr1z9iwhm8w-get-reservation-messages
+    type: APIReference
+    note: Get Reservation Messages - GET /v2/reservations/{uuid}/messages.
+  - url: https://developer.hospitable.com/docs/public-api-docs/k4ctofvqu0w8g-hospitable-api-v2
+    type: Documentation
+    note: Hospitable API V2 webhooks overview. Outbound HTTP POST callbacks, not WebSocket.
+  - url: https://help.hospitable.com/en/articles/10008203-webhooks-for-reservations-properties-messages-and-reviews
+    type: Documentation
+    note: v2 webhook event types, dashboard configuration, retry/back-off behavior, source IP range.
+  - url: https://help.hospitable.com/en/articles/8609392-accessing-the-public-api-with-a-personal-access-token-pat
+    type: Documentation
+    note: PAT scope - tokens are scoped to a single Hospitable account and have access to all Public API endpoints by default.
+  - url: https://hospitable.com/pricing
+    type: Pricing
+    note: Per-property monthly subscription; Public API and MCP access require Professional plan or higher.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists on Hospitable's own API. The public
+    surface is request/response REST (Public API v2) plus dashboard-configured
+    outbound webhooks (server-to-endpoint HTTP POST). No AsyncAPI document was
+    created because there is no server-push streaming transport (WebSocket or
+    SSE) on Hospitable's own API to model; webhooks are one-way HTTP callbacks
+    documented in apis.yml and this review instead.

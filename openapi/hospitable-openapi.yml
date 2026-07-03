@@ -1,0 +1,730 @@
+openapi: 3.0.3
+info:
+  title: Hospitable Public API
+  description: >-
+    The Hospitable Public API (v2) is a REST API for short-term and vacation
+    rental hosts, property managers, and vendors. It exposes the core objects of
+    the Hospitable platform - properties, channel listings, reservations, guest
+    messages, calendar availability and pricing, and reviews - as resources
+    manipulated with conventional HTTP methods (GET, POST, PUT, PATCH, DELETE)
+    over HTTPS. Versioning is in the URL path (e.g. /v2/properties). Requests are
+    authenticated with a Bearer token that is either a Personal Access Token
+    (PAT) for personal use or an OAuth 2.0 access token for vendor integrations;
+    PATs have access to all endpoints by default. Read access covers properties,
+    reservations, and calendar; write access covers property calendar pricing and
+    availability and sending guest messages. Hospitable was formerly known as
+    Smartbnb. Note - the exact request/response schemas below are modeled from
+    Hospitable's public documentation and community SDKs; verify field-level
+    details against developer.hospitable.com.
+  version: '2.0'
+  contact:
+    name: Hospitable
+    url: https://developer.hospitable.com
+  termsOfService: https://hospitable.com/terms
+servers:
+  - url: https://public.api.hospitable.com/v2
+    description: Hospitable Public API v2
+security:
+  - bearerAuth: []
+tags:
+  - name: Properties
+    description: Vacation rental properties connected to the account.
+  - name: Listings
+    description: Channel listings (Airbnb, Vrbo, Booking.com, direct) mapped to a property.
+  - name: Reservations
+    description: Bookings across all connected channels.
+  - name: Messages
+    description: Guest-host message threads per reservation.
+  - name: Calendar
+    description: Nightly availability, pricing, and restrictions per property.
+  - name: Reviews
+    description: Guest reviews and host responses.
+  - name: User
+    description: The authenticated Hospitable user.
+paths:
+  /properties:
+    get:
+      operationId: listProperties
+      tags:
+        - Properties
+      summary: List properties
+      description: >-
+        Lists the properties connected to the authenticated account, with
+        pagination. Supports including related resources such as listings and
+        details via the `include` query parameter.
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+          description: Page number for pagination.
+        - name: per_page
+          in: query
+          schema:
+            type: integer
+          description: Number of results per page.
+        - name: include
+          in: query
+          schema:
+            type: string
+          description: Comma-separated related resources to include (for example, listings, details, user).
+      responses:
+        '200':
+          description: A paginated list of properties.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Property'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /properties/{uuid}:
+    get:
+      operationId: getProperty
+      tags:
+        - Properties
+      summary: Get a property
+      description: Retrieves a single property by its UUID.
+      parameters:
+        - $ref: '#/components/parameters/PropertyUuid'
+        - name: include
+          in: query
+          schema:
+            type: string
+          description: Comma-separated related resources to include.
+      responses:
+        '200':
+          description: The requested property.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Property'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /properties/search:
+    post:
+      operationId: searchProperties
+      tags:
+        - Properties
+      summary: Search available properties
+      description: >-
+        Searches connected properties for availability over a date range and
+        occupancy. Modeled endpoint - confirm the exact request body against the
+        documentation.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                start_date:
+                  type: string
+                  format: date
+                end_date:
+                  type: string
+                  format: date
+                guests:
+                  type: integer
+      responses:
+        '200':
+          description: Matching available properties.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Property'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /listings:
+    get:
+      operationId: listListings
+      tags:
+        - Listings
+      summary: List channel listings
+      description: >-
+        Lists the individual channel listings (Airbnb, Vrbo, Booking.com,
+        direct) across the account, each mapped to a Hospitable property.
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A paginated list of channel listings.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Listing'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /reservations:
+    get:
+      operationId: listReservations
+      tags:
+        - Reservations
+      summary: List reservations
+      description: >-
+        Lists reservations across connected channels. Filterable by one or more
+        property UUIDs and by a check-in / check-out date range.
+      parameters:
+        - name: properties[]
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+          description: One or more property UUIDs to filter by.
+        - name: start_date
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: end_date
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: include
+          in: query
+          schema:
+            type: string
+          description: Comma-separated related resources (for example, guest, financials, listings).
+      responses:
+        '200':
+          description: A paginated list of reservations.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Reservation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /reservations/{uuid}:
+    get:
+      operationId: getReservation
+      tags:
+        - Reservations
+      summary: Get a reservation
+      description: Retrieves a single reservation by its UUID.
+      parameters:
+        - $ref: '#/components/parameters/ReservationUuid'
+        - name: include
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The requested reservation.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Reservation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /reservations/{uuid}/messages:
+    get:
+      operationId: listReservationMessages
+      tags:
+        - Messages
+      summary: Get reservation messages
+      description: Lists the guest-host message thread for a reservation.
+      parameters:
+        - $ref: '#/components/parameters/ReservationUuid'
+      responses:
+        '200':
+          description: The messages on the reservation thread.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Message'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: sendReservationMessage
+      tags:
+        - Messages
+      summary: Send a message
+      description: >-
+        Sends a message to the guest on a reservation. Hospitable relays the
+        message to the underlying channel (Airbnb, Vrbo, Booking.com, or direct).
+      parameters:
+        - $ref: '#/components/parameters/ReservationUuid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - body
+              properties:
+                body:
+                  type: string
+                  description: The message text to send to the guest.
+      responses:
+        '201':
+          description: The message was accepted for delivery.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Message'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /properties/{uuid}/calendar:
+    get:
+      operationId: getPropertyCalendar
+      tags:
+        - Calendar
+      summary: Get a property calendar
+      description: >-
+        Retrieves the nightly calendar for a property over a date range -
+        availability, price, and minimum-stay and other restrictions per date.
+      parameters:
+        - $ref: '#/components/parameters/PropertyUuid'
+        - name: start_date
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+        - name: end_date
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: The calendar days for the property.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CalendarDay'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    put:
+      operationId: updatePropertyCalendar
+      tags:
+        - Calendar
+      summary: Update a property calendar
+      description: >-
+        Updates availability and/or pricing for one or more dates on a property
+        calendar. Requires write access. Hospitable syncs the change to the
+        connected channels. Modeled endpoint - confirm method and body against
+        the documentation.
+      parameters:
+        - $ref: '#/components/parameters/PropertyUuid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                dates:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/CalendarDay'
+      responses:
+        '200':
+          description: The updated calendar days.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CalendarDay'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /properties/{uuid}/reviews:
+    get:
+      operationId: listPropertyReviews
+      tags:
+        - Reviews
+      summary: List property reviews
+      description: >-
+        Lists guest reviews for a property from Airbnb and direct bookings,
+        including overall rating, category scores, and public content. Modeled
+        endpoint - confirm the exact path against the documentation.
+      parameters:
+        - $ref: '#/components/parameters/PropertyUuid'
+      responses:
+        '200':
+          description: The reviews for the property.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Review'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /reviews/{uuid}/response:
+    post:
+      operationId: respondToReview
+      tags:
+        - Reviews
+      summary: Respond to a review
+      description: >-
+        Posts a public host response to a guest review. Modeled endpoint -
+        confirm the exact path and body against the documentation.
+      parameters:
+        - name: uuid
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The review UUID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - body
+              properties:
+                body:
+                  type: string
+      responses:
+        '201':
+          description: The response was accepted.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /user:
+    get:
+      operationId: getUser
+      tags:
+        - User
+      summary: Get the authenticated user
+      description: >-
+        Returns the Hospitable user associated with the current token, including
+        account and billing context. Modeled endpoint - confirm against the
+        documentation.
+      responses:
+        '200':
+          description: The authenticated user.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/User'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: >-
+        A Personal Access Token (PAT) or OAuth 2.0 access token supplied as
+        `Authorization: Bearer <token>`. OAuth 2.0 authorization-code flow is
+        used for vendor integrations; PATs are scoped to a single Hospitable
+        account for personal use.
+  parameters:
+    PropertyUuid:
+      name: uuid
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The property UUID.
+    ReservationUuid:
+      name: uuid
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The reservation UUID.
+  responses:
+    Unauthorized:
+      description: The Bearer token is missing, invalid, or lacks the required scope.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: The request body failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Property:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The property UUID.
+        name:
+          type: string
+        public_name:
+          type: string
+        picture:
+          type: string
+          format: uri
+        address:
+          type: object
+          properties:
+            street:
+              type: string
+            city:
+              type: string
+            state:
+              type: string
+            country_code:
+              type: string
+            zip:
+              type: string
+        timezone:
+          type: string
+        capacity:
+          type: object
+          properties:
+            max:
+              type: integer
+            bedrooms:
+              type: integer
+            beds:
+              type: integer
+            bathrooms:
+              type: number
+        currency:
+          type: string
+        listed:
+          type: boolean
+        amenities:
+          type: array
+          items:
+            type: string
+    Listing:
+      type: object
+      properties:
+        id:
+          type: string
+        property_id:
+          type: string
+        platform:
+          type: string
+          description: The channel this listing belongs to (airbnb, vrbo, booking, direct, homeaway, google).
+        platform_id:
+          type: string
+          description: The channel's own identifier for the listing.
+        name:
+          type: string
+        status:
+          type: string
+    Reservation:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The reservation UUID.
+        platform:
+          type: string
+        platform_id:
+          type: string
+          description: The channel confirmation code (for example, an Airbnb code).
+        property_id:
+          type: string
+        status:
+          type: string
+          description: Reservation status (for example, accepted, cancelled, request, checkpoint).
+        check_in:
+          type: string
+          format: date-time
+        check_out:
+          type: string
+          format: date-time
+        nights:
+          type: integer
+        guests:
+          type: object
+          properties:
+            total:
+              type: integer
+            adult_count:
+              type: integer
+            child_count:
+              type: integer
+            infant_count:
+              type: integer
+        guest:
+          $ref: '#/components/schemas/Guest'
+        financials:
+          type: object
+          description: Payout, host fees, taxes, and other financial breakdown for the reservation.
+    Guest:
+      type: object
+      properties:
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        picture:
+          type: string
+          format: uri
+        location:
+          type: string
+    Message:
+      type: object
+      properties:
+        id:
+          type: string
+        reservation_id:
+          type: string
+        sender_role:
+          type: string
+          description: Who sent the message (guest or host).
+        platform:
+          type: string
+        body:
+          type: string
+        attachments:
+          type: array
+          items:
+            type: string
+            format: uri
+        created_at:
+          type: string
+          format: date-time
+    CalendarDay:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+        available:
+          type: boolean
+        status:
+          type: string
+        price:
+          type: object
+          properties:
+            amount:
+              type: integer
+              description: Nightly price in the smallest currency unit.
+            currency:
+              type: string
+        min_nights:
+          type: integer
+        closed_for_checkin:
+          type: boolean
+        closed_for_checkout:
+          type: boolean
+    Review:
+      type: object
+      properties:
+        id:
+          type: string
+        reservation_id:
+          type: string
+        platform:
+          type: string
+        rating:
+          type: number
+        public_review:
+          type: string
+        category_ratings:
+          type: object
+          additionalProperties:
+            type: number
+        response:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        timezone:
+          type: string
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
