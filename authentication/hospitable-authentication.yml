@@ -1,0 +1,15 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/hospitable-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  description: 'A Personal Access Token (PAT) or OAuth 2.0 access token supplied as `Authorization:
+    Bearer <token>`. OAuth 2.0 authorization-code flow is used for vendor integrations; PATs
+    are scoped to a single Hospitable account for personal use.'
+  sources:
+  - openapi/hospitable-openapi.yml

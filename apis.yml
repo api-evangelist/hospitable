@@ -175,6 +175,10 @@ apis:
     endpoint. Webhooks are configured in the dashboard (Apps > Webhooks); delivery is
     retried up to five times with exponential back-off.
 common:
+- type: DomainSecurity
+  url: security/hospitable-domain-security.yml
+- type: Authentication
+  url: authentication/hospitable-authentication.yml
 - type: LinkedIn
   url: https://www.linkedin.com/company/hospitable
 - type: Website
