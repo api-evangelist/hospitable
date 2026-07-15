@@ -175,6 +175,8 @@ apis:
     endpoint. Webhooks are configured in the dashboard (Apps > Webhooks); delivery is
     retried up to five times with exponential back-off.
 common:
+- type: AgenticAccess
+  url: agentic-access/hospitable-agentic-access.yml
 - type: DomainSecurity
   url: security/hospitable-domain-security.yml
 - type: Authentication
