@@ -1,0 +1,134 @@
+openapi: 3.0.3
+info:
+  title: Hospitable Public Calendar Reviews API
+  description: The Hospitable Public API (v2) is a REST API for short-term and vacation rental hosts, property managers, and vendors. It exposes the core objects of the Hospitable platform - properties, channel listings, reservations, guest messages, calendar availability and pricing, and reviews - as resources manipulated with conventional HTTP methods (GET, POST, PUT, PATCH, DELETE) over HTTPS. Versioning is in the URL path (e.g. /v2/properties). Requests are authenticated with a Bearer token that is either a Personal Access Token (PAT) for personal use or an OAuth 2.0 access token for vendor integrations; PATs have access to all endpoints by default. Read access covers properties, reservations, and calendar; write access covers property calendar pricing and availability and sending guest messages. Hospitable was formerly known as Smartbnb. Note - the exact request/response schemas below are modeled from Hospitable's public documentation and community SDKs; verify field-level details against developer.hospitable.com.
+  version: '2.0'
+  contact:
+    name: Hospitable
+    url: https://developer.hospitable.com
+  termsOfService: https://hospitable.com/terms
+servers:
+- url: https://public.api.hospitable.com/v2
+  description: Hospitable Public API v2
+security:
+- bearerAuth: []
+tags:
+- name: Reviews
+  description: Guest reviews and host responses.
+paths:
+  /properties/{uuid}/reviews:
+    get:
+      operationId: listPropertyReviews
+      tags:
+      - Reviews
+      summary: List property reviews
+      description: Lists guest reviews for a property from Airbnb and direct bookings, including overall rating, category scores, and public content. Modeled endpoint - confirm the exact path against the documentation.
+      parameters:
+      - $ref: '#/components/parameters/PropertyUuid'
+      responses:
+        '200':
+          description: The reviews for the property.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Review'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /reviews/{uuid}/response:
+    post:
+      operationId: respondToReview
+      tags:
+      - Reviews
+      summary: Respond to a review
+      description: Posts a public host response to a guest review. Modeled endpoint - confirm the exact path and body against the documentation.
+      parameters:
+      - name: uuid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The review UUID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - body
+              properties:
+                body:
+                  type: string
+      responses:
+        '201':
+          description: The response was accepted.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+components:
+  responses:
+    UnprocessableEntity:
+      description: The request body failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: The Bearer token is missing, invalid, or lacks the required scope.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+    Review:
+      type: object
+      properties:
+        id:
+          type: string
+        reservation_id:
+          type: string
+        platform:
+          type: string
+        rating:
+          type: number
+        public_review:
+          type: string
+        category_ratings:
+          type: object
+          additionalProperties:
+            type: number
+        response:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+  parameters:
+    PropertyUuid:
+      name: uuid
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The property UUID.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'A Personal Access Token (PAT) or OAuth 2.0 access token supplied as `Authorization: Bearer <token>`. OAuth 2.0 authorization-code flow is used for vendor integrations; PATs are scoped to a single Hospitable account for personal use.'

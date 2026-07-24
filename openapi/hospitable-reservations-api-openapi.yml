@@ -1,0 +1,184 @@
+openapi: 3.0.3
+info:
+  title: Hospitable Public Calendar Reservations API
+  description: The Hospitable Public API (v2) is a REST API for short-term and vacation rental hosts, property managers, and vendors. It exposes the core objects of the Hospitable platform - properties, channel listings, reservations, guest messages, calendar availability and pricing, and reviews - as resources manipulated with conventional HTTP methods (GET, POST, PUT, PATCH, DELETE) over HTTPS. Versioning is in the URL path (e.g. /v2/properties). Requests are authenticated with a Bearer token that is either a Personal Access Token (PAT) for personal use or an OAuth 2.0 access token for vendor integrations; PATs have access to all endpoints by default. Read access covers properties, reservations, and calendar; write access covers property calendar pricing and availability and sending guest messages. Hospitable was formerly known as Smartbnb. Note - the exact request/response schemas below are modeled from Hospitable's public documentation and community SDKs; verify field-level details against developer.hospitable.com.
+  version: '2.0'
+  contact:
+    name: Hospitable
+    url: https://developer.hospitable.com
+  termsOfService: https://hospitable.com/terms
+servers:
+- url: https://public.api.hospitable.com/v2
+  description: Hospitable Public API v2
+security:
+- bearerAuth: []
+tags:
+- name: Reservations
+  description: Bookings across all connected channels.
+paths:
+  /reservations:
+    get:
+      operationId: listReservations
+      tags:
+      - Reservations
+      summary: List reservations
+      description: Lists reservations across connected channels. Filterable by one or more property UUIDs and by a check-in / check-out date range.
+      parameters:
+      - name: properties[]
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+        description: One or more property UUIDs to filter by.
+      - name: start_date
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: end_date
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: include
+        in: query
+        schema:
+          type: string
+        description: Comma-separated related resources (for example, guest, financials, listings).
+      responses:
+        '200':
+          description: A paginated list of reservations.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Reservation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /reservations/{uuid}:
+    get:
+      operationId: getReservation
+      tags:
+      - Reservations
+      summary: Get a reservation
+      description: Retrieves a single reservation by its UUID.
+      parameters:
+      - $ref: '#/components/parameters/ReservationUuid'
+      - name: include
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The requested reservation.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Reservation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  parameters:
+    ReservationUuid:
+      name: uuid
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The reservation UUID.
+  schemas:
+    Reservation:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The reservation UUID.
+        platform:
+          type: string
+        platform_id:
+          type: string
+          description: The channel confirmation code (for example, an Airbnb code).
+        property_id:
+          type: string
+        status:
+          type: string
+          description: Reservation status (for example, accepted, cancelled, request, checkpoint).
+        check_in:
+          type: string
+          format: date-time
+        check_out:
+          type: string
+          format: date-time
+        nights:
+          type: integer
+        guests:
+          type: object
+          properties:
+            total:
+              type: integer
+            adult_count:
+              type: integer
+            child_count:
+              type: integer
+            infant_count:
+              type: integer
+        guest:
+          $ref: '#/components/schemas/Guest'
+        financials:
+          type: object
+          description: Payout, host fees, taxes, and other financial breakdown for the reservation.
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+    Guest:
+      type: object
+      properties:
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        picture:
+          type: string
+          format: uri
+        location:
+          type: string
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: The Bearer token is missing, invalid, or lacks the required scope.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'A Personal Access Token (PAT) or OAuth 2.0 access token supplied as `Authorization: Bearer <token>`. OAuth 2.0 authorization-code flow is used for vendor integrations; PATs are scoped to a single Hospitable account for personal use.'

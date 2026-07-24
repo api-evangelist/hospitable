@@ -1,0 +1,205 @@
+openapi: 3.0.3
+info:
+  title: Hospitable Public Calendar Properties API
+  description: The Hospitable Public API (v2) is a REST API for short-term and vacation rental hosts, property managers, and vendors. It exposes the core objects of the Hospitable platform - properties, channel listings, reservations, guest messages, calendar availability and pricing, and reviews - as resources manipulated with conventional HTTP methods (GET, POST, PUT, PATCH, DELETE) over HTTPS. Versioning is in the URL path (e.g. /v2/properties). Requests are authenticated with a Bearer token that is either a Personal Access Token (PAT) for personal use or an OAuth 2.0 access token for vendor integrations; PATs have access to all endpoints by default. Read access covers properties, reservations, and calendar; write access covers property calendar pricing and availability and sending guest messages. Hospitable was formerly known as Smartbnb. Note - the exact request/response schemas below are modeled from Hospitable's public documentation and community SDKs; verify field-level details against developer.hospitable.com.
+  version: '2.0'
+  contact:
+    name: Hospitable
+    url: https://developer.hospitable.com
+  termsOfService: https://hospitable.com/terms
+servers:
+- url: https://public.api.hospitable.com/v2
+  description: Hospitable Public API v2
+security:
+- bearerAuth: []
+tags:
+- name: Properties
+  description: Vacation rental properties connected to the account.
+paths:
+  /properties:
+    get:
+      operationId: listProperties
+      tags:
+      - Properties
+      summary: List properties
+      description: Lists the properties connected to the authenticated account, with pagination. Supports including related resources such as listings and details via the `include` query parameter.
+      parameters:
+      - name: page
+        in: query
+        schema:
+          type: integer
+        description: Page number for pagination.
+      - name: per_page
+        in: query
+        schema:
+          type: integer
+        description: Number of results per page.
+      - name: include
+        in: query
+        schema:
+          type: string
+        description: Comma-separated related resources to include (for example, listings, details, user).
+      responses:
+        '200':
+          description: A paginated list of properties.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Property'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /properties/{uuid}:
+    get:
+      operationId: getProperty
+      tags:
+      - Properties
+      summary: Get a property
+      description: Retrieves a single property by its UUID.
+      parameters:
+      - $ref: '#/components/parameters/PropertyUuid'
+      - name: include
+        in: query
+        schema:
+          type: string
+        description: Comma-separated related resources to include.
+      responses:
+        '200':
+          description: The requested property.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Property'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /properties/search:
+    post:
+      operationId: searchProperties
+      tags:
+      - Properties
+      summary: Search available properties
+      description: Searches connected properties for availability over a date range and occupancy. Modeled endpoint - confirm the exact request body against the documentation.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                start_date:
+                  type: string
+                  format: date
+                end_date:
+                  type: string
+                  format: date
+                guests:
+                  type: integer
+      responses:
+        '200':
+          description: Matching available properties.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Property'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: The Bearer token is missing, invalid, or lacks the required scope.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+    Property:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The property UUID.
+        name:
+          type: string
+        public_name:
+          type: string
+        picture:
+          type: string
+          format: uri
+        address:
+          type: object
+          properties:
+            street:
+              type: string
+            city:
+              type: string
+            state:
+              type: string
+            country_code:
+              type: string
+            zip:
+              type: string
+        timezone:
+          type: string
+        capacity:
+          type: object
+          properties:
+            max:
+              type: integer
+            bedrooms:
+              type: integer
+            beds:
+              type: integer
+            bathrooms:
+              type: number
+        currency:
+          type: string
+        listed:
+          type: boolean
+        amenities:
+          type: array
+          items:
+            type: string
+  parameters:
+    PropertyUuid:
+      name: uuid
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The property UUID.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'A Personal Access Token (PAT) or OAuth 2.0 access token supplied as `Authorization: Bearer <token>`. OAuth 2.0 authorization-code flow is used for vendor integrations; PATs are scoped to a single Hospitable account for personal use.'

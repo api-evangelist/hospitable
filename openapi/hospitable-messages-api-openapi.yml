@@ -1,0 +1,144 @@
+openapi: 3.0.3
+info:
+  title: Hospitable Public Calendar Messages API
+  description: The Hospitable Public API (v2) is a REST API for short-term and vacation rental hosts, property managers, and vendors. It exposes the core objects of the Hospitable platform - properties, channel listings, reservations, guest messages, calendar availability and pricing, and reviews - as resources manipulated with conventional HTTP methods (GET, POST, PUT, PATCH, DELETE) over HTTPS. Versioning is in the URL path (e.g. /v2/properties). Requests are authenticated with a Bearer token that is either a Personal Access Token (PAT) for personal use or an OAuth 2.0 access token for vendor integrations; PATs have access to all endpoints by default. Read access covers properties, reservations, and calendar; write access covers property calendar pricing and availability and sending guest messages. Hospitable was formerly known as Smartbnb. Note - the exact request/response schemas below are modeled from Hospitable's public documentation and community SDKs; verify field-level details against developer.hospitable.com.
+  version: '2.0'
+  contact:
+    name: Hospitable
+    url: https://developer.hospitable.com
+  termsOfService: https://hospitable.com/terms
+servers:
+- url: https://public.api.hospitable.com/v2
+  description: Hospitable Public API v2
+security:
+- bearerAuth: []
+tags:
+- name: Messages
+  description: Guest-host message threads per reservation.
+paths:
+  /reservations/{uuid}/messages:
+    get:
+      operationId: listReservationMessages
+      tags:
+      - Messages
+      summary: Get reservation messages
+      description: Lists the guest-host message thread for a reservation.
+      parameters:
+      - $ref: '#/components/parameters/ReservationUuid'
+      responses:
+        '200':
+          description: The messages on the reservation thread.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Message'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: sendReservationMessage
+      tags:
+      - Messages
+      summary: Send a message
+      description: Sends a message to the guest on a reservation. Hospitable relays the message to the underlying channel (Airbnb, Vrbo, Booking.com, or direct).
+      parameters:
+      - $ref: '#/components/parameters/ReservationUuid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - body
+              properties:
+                body:
+                  type: string
+                  description: The message text to send to the guest.
+      responses:
+        '201':
+          description: The message was accepted for delivery.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Message'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+components:
+  parameters:
+    ReservationUuid:
+      name: uuid
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The reservation UUID.
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: The request body failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: The Bearer token is missing, invalid, or lacks the required scope.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+    Message:
+      type: object
+      properties:
+        id:
+          type: string
+        reservation_id:
+          type: string
+        sender_role:
+          type: string
+          description: Who sent the message (guest or host).
+        platform:
+          type: string
+        body:
+          type: string
+        attachments:
+          type: array
+          items:
+            type: string
+            format: uri
+        created_at:
+          type: string
+          format: date-time
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'A Personal Access Token (PAT) or OAuth 2.0 access token supplied as `Authorization: Bearer <token>`. OAuth 2.0 authorization-code flow is used for vendor integrations; PATs are scoped to a single Hospitable account for personal use.'
