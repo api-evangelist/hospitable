@@ -12,7 +12,20 @@ description: Hospitable (formerly Smartbnb) is a short-term and vacation rental
   availability and pricing, and reviews, authenticated with OAuth 2.0 (for vendors)
   or Personal Access Tokens (for personal use). v2 webhooks push reservation,
   property, message, and review events to a host's server.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: open
+  trial: true
+  try_now: true
+  public: true
+  label: Freemium (free trial) · Open access
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/hospitable.png
 tags:
 - Vacation Rental
 - Short-Term Rental
@@ -24,137 +37,6 @@ created: '2026-07-03'
 modified: '2026-07-03'
 specificationVersion: '0.19'
 apis:
-- aid: hospitable:hospitable-properties-api
-  name: Hospitable Properties API
-  tags:
-  - Properties
-  - Rentals
-  - Inventory
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developer.hospitable.com/docs/public-api-docs/qc4x36uhxinx3-get-properties
-  baseURL: https://public.api.hospitable.com/v2
-  properties:
-  - url: https://developer.hospitable.com/docs/public-api-docs/d862b3ee512e6-introduction
-    type: Documentation
-  - url: https://developer.hospitable.com/docs/public-api-docs/qc4x36uhxinx3-get-properties
-    type: APIReference
-  - url: openapi/hospitable-openapi.yml
-    type: OpenAPI
-  - url: collections/hospitable.postman_collection.json
-    type: PostmanCollection
-  - url: collections/hospitable.opencollection.json
-    type: OpenCollection
-  description: List and retrieve the vacation rental properties connected to a
-    Hospitable account, including address, capacity, amenities, house rules, photos,
-    and the channel listings mapped to each property. The parent resource for
-    calendar, reservations, and reviews.
-- aid: hospitable:hospitable-listings-api
-  name: Hospitable Listings API
-  tags:
-  - Listings
-  - Channels
-  - Airbnb
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developer.hospitable.com/docs/public-api-docs/d862b3ee512e6-introduction
-  baseURL: https://public.api.hospitable.com/v2
-  properties:
-  - url: https://developer.hospitable.com/docs/public-api-docs/d862b3ee512e6-introduction
-    type: Documentation
-  - url: openapi/hospitable-openapi.yml
-    type: OpenAPI
-  - url: collections/hospitable.postman_collection.json
-    type: PostmanCollection
-  - url: collections/hospitable.opencollection.json
-    type: OpenCollection
-  description: Access the individual channel listings (Airbnb, Vrbo, Booking.com,
-    and Hospitable direct) that map to a property, so a single Hospitable property
-    can be reconciled across every OTA it is published on for cross-listing
-    aggregation.
-- aid: hospitable:hospitable-reservations-api
-  name: Hospitable Reservations API
-  tags:
-  - Reservations
-  - Bookings
-  - Guests
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developer.hospitable.com/docs/public-api-docs/ih7nc1ovefrcs-get-reservations
-  baseURL: https://public.api.hospitable.com/v2
-  properties:
-  - url: https://developer.hospitable.com/docs/public-api-docs/ih7nc1ovefrcs-get-reservations
-    type: APIReference
-  - url: openapi/hospitable-openapi.yml
-    type: OpenAPI
-  - url: collections/hospitable.postman_collection.json
-    type: PostmanCollection
-  - url: collections/hospitable.opencollection.json
-    type: OpenCollection
-  description: List and retrieve reservations across all connected channels, with
-    guest details, check-in and check-out dates, status, platform, and financial
-    breakdown (payout, host fees, taxes). Reservations can be filtered by property
-    and date range.
-- aid: hospitable:hospitable-messages-api
-  name: Hospitable Messages API
-  tags:
-  - Messaging
-  - Inbox
-  - Guest Communication
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developer.hospitable.com/docs/public-api-docs/n6jr1z9iwhm8w-get-reservation-messages
-  baseURL: https://public.api.hospitable.com/v2
-  properties:
-  - url: https://developer.hospitable.com/docs/public-api-docs/n6jr1z9iwhm8w-get-reservation-messages
-    type: APIReference
-  - url: openapi/hospitable-openapi.yml
-    type: OpenAPI
-  - url: collections/hospitable.postman_collection.json
-    type: PostmanCollection
-  - url: collections/hospitable.opencollection.json
-    type: OpenCollection
-  description: Read the guest-host message thread for a reservation and send new
-    messages back to the guest through Hospitable's unified inbox, which relays to
-    the underlying channel (Airbnb, Vrbo, Booking.com, or direct).
-- aid: hospitable:hospitable-calendar-api
-  name: Hospitable Calendar API
-  tags:
-  - Calendar
-  - Availability
-  - Pricing
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developer.hospitable.com/docs/public-api-docs/d862b3ee512e6-introduction
-  baseURL: https://public.api.hospitable.com/v2
-  properties:
-  - url: https://developer.hospitable.com/docs/public-api-docs/d862b3ee512e6-introduction
-    type: Documentation
-  - url: openapi/hospitable-openapi.yml
-    type: OpenAPI
-  - url: collections/hospitable.postman_collection.json
-    type: PostmanCollection
-  - url: collections/hospitable.opencollection.json
-    type: OpenCollection
-  description: Read a property's calendar of nightly availability, prices, and
-    minimum-stay restrictions, and (with write access) update pricing and
-    availability per date, which Hospitable syncs out to the connected channels.
-- aid: hospitable:hospitable-reviews-api
-  name: Hospitable Reviews API
-  tags:
-  - Reviews
-  - Ratings
-  - Reputation
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developer.hospitable.com/docs/public-api-docs/d862b3ee512e6-introduction
-  baseURL: https://public.api.hospitable.com/v2
-  properties:
-  - url: https://developer.hospitable.com/docs/public-api-docs/d862b3ee512e6-introduction
-    type: Documentation
-  - url: openapi/hospitable-openapi.yml
-    type: OpenAPI
-  - url: collections/hospitable.postman_collection.json
-    type: PostmanCollection
-  - url: collections/hospitable.opencollection.json
-    type: OpenCollection
-  description: Retrieve guest reviews for a property from Airbnb and direct bookings,
-    including rating, category scores, and public content, and respond to reviews on
-    behalf of the host.
 - aid: hospitable:hospitable-webhooks-api
   name: Hospitable Webhooks API
   tags:
@@ -167,13 +49,175 @@ apis:
   properties:
   - url: https://developer.hospitable.com/docs/public-api-docs/k4ctofvqu0w8g-hospitable-api-v2
     type: Documentation
-  - url: https://help.hospitable.com/en/articles/10008203-webhooks-for-reservations-properties-messages-and-reviews
+  - url: >-
+      https://help.hospitable.com/en/articles/10008203-webhooks-for-reservations-properties-messages-and-reviews
     type: Documentation
-  description: Hospitable v2 webhooks push near-real-time event notifications
-    (reservation.created, reservation.changed, property.created/changed/deleted/merged,
-    message.created, review.created) as JSON POST requests to a host-configured
-    endpoint. Webhooks are configured in the dashboard (Apps > Webhooks); delivery is
+  description: >-
+    Hospitable v2 webhooks push near-real-time event notifications (reservation.created, reservation.changed,
+    property.created/changed/deleted/merged, message.created, review.created) as JSON POST requests to
+    a host-configured endpoint. Webhooks are configured in the dashboard (Apps > Webhooks); delivery is
     retried up to five times with exponential back-off.
+- aid: hospitable:hospitable-calendar-api
+  name: Hospitable Calendar API
+  description: Nightly availability, pricing, and restrictions per property.
+  humanURL: https://developer.hospitable.com/docs/public-api-docs/qc4x36uhxinx3-get-properties
+  baseURL: https://public.api.hospitable.com/v2
+  tags:
+  - Calendar
+  properties:
+  - type: OpenAPI
+    url: openapi/hospitable-calendar-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hospitable.com/docs/public-api-docs/d862b3ee512e6-introduction
+  - type: APIReference
+    url: https://developer.hospitable.com/docs/public-api-docs/qc4x36uhxinx3-get-properties
+  - type: PostmanCollection
+    url: collections/hospitable.postman_collection.json
+  - type: OpenCollection
+    url: collections/hospitable.opencollection.json
+  - type: APIReference
+    url: https://developer.hospitable.com/docs/public-api-docs/ih7nc1ovefrcs-get-reservations
+  - type: APIReference
+    url: >-
+      https://developer.hospitable.com/docs/public-api-docs/n6jr1z9iwhm8w-get-reservation-messages
+- aid: hospitable:hospitable-listings-api
+  name: Hospitable Listings API
+  description: Channel listings (Airbnb, Vrbo, Booking.com, direct) mapped to a property.
+  humanURL: https://developer.hospitable.com/docs/public-api-docs/qc4x36uhxinx3-get-properties
+  baseURL: https://public.api.hospitable.com/v2
+  tags:
+  - Listings
+  properties:
+  - type: OpenAPI
+    url: openapi/hospitable-listings-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hospitable.com/docs/public-api-docs/d862b3ee512e6-introduction
+  - type: APIReference
+    url: https://developer.hospitable.com/docs/public-api-docs/qc4x36uhxinx3-get-properties
+  - type: PostmanCollection
+    url: collections/hospitable.postman_collection.json
+  - type: OpenCollection
+    url: collections/hospitable.opencollection.json
+  - type: APIReference
+    url: https://developer.hospitable.com/docs/public-api-docs/ih7nc1ovefrcs-get-reservations
+  - type: APIReference
+    url: >-
+      https://developer.hospitable.com/docs/public-api-docs/n6jr1z9iwhm8w-get-reservation-messages
+- aid: hospitable:hospitable-messages-api
+  name: Hospitable Messages API
+  description: Guest-host message threads per reservation.
+  humanURL: https://developer.hospitable.com/docs/public-api-docs/qc4x36uhxinx3-get-properties
+  baseURL: https://public.api.hospitable.com/v2
+  tags:
+  - Messages
+  properties:
+  - type: OpenAPI
+    url: openapi/hospitable-messages-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hospitable.com/docs/public-api-docs/d862b3ee512e6-introduction
+  - type: APIReference
+    url: https://developer.hospitable.com/docs/public-api-docs/qc4x36uhxinx3-get-properties
+  - type: PostmanCollection
+    url: collections/hospitable.postman_collection.json
+  - type: OpenCollection
+    url: collections/hospitable.opencollection.json
+  - type: APIReference
+    url: https://developer.hospitable.com/docs/public-api-docs/ih7nc1ovefrcs-get-reservations
+  - type: APIReference
+    url: >-
+      https://developer.hospitable.com/docs/public-api-docs/n6jr1z9iwhm8w-get-reservation-messages
+- aid: hospitable:hospitable-properties-api
+  name: Hospitable Properties API
+  description: Vacation rental properties connected to the account.
+  humanURL: https://developer.hospitable.com/docs/public-api-docs/qc4x36uhxinx3-get-properties
+  baseURL: https://public.api.hospitable.com/v2
+  tags:
+  - Properties
+  properties:
+  - type: OpenAPI
+    url: openapi/hospitable-properties-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hospitable.com/docs/public-api-docs/d862b3ee512e6-introduction
+  - type: APIReference
+    url: https://developer.hospitable.com/docs/public-api-docs/qc4x36uhxinx3-get-properties
+  - type: PostmanCollection
+    url: collections/hospitable.postman_collection.json
+  - type: OpenCollection
+    url: collections/hospitable.opencollection.json
+  - type: APIReference
+    url: https://developer.hospitable.com/docs/public-api-docs/ih7nc1ovefrcs-get-reservations
+  - type: APIReference
+    url: >-
+      https://developer.hospitable.com/docs/public-api-docs/n6jr1z9iwhm8w-get-reservation-messages
+- aid: hospitable:hospitable-reservations-api
+  name: Hospitable Reservations API
+  description: Bookings across all connected channels.
+  humanURL: https://developer.hospitable.com/docs/public-api-docs/qc4x36uhxinx3-get-properties
+  baseURL: https://public.api.hospitable.com/v2
+  tags:
+  - Reservations
+  properties:
+  - type: OpenAPI
+    url: openapi/hospitable-reservations-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hospitable.com/docs/public-api-docs/d862b3ee512e6-introduction
+  - type: APIReference
+    url: https://developer.hospitable.com/docs/public-api-docs/qc4x36uhxinx3-get-properties
+  - type: PostmanCollection
+    url: collections/hospitable.postman_collection.json
+  - type: OpenCollection
+    url: collections/hospitable.opencollection.json
+  - type: APIReference
+    url: https://developer.hospitable.com/docs/public-api-docs/ih7nc1ovefrcs-get-reservations
+  - type: APIReference
+    url: >-
+      https://developer.hospitable.com/docs/public-api-docs/n6jr1z9iwhm8w-get-reservation-messages
+- aid: hospitable:hospitable-reviews-api
+  name: Hospitable Reviews API
+  description: Guest reviews and host responses.
+  humanURL: https://developer.hospitable.com/docs/public-api-docs/qc4x36uhxinx3-get-properties
+  baseURL: https://public.api.hospitable.com/v2
+  tags:
+  - Reviews
+  properties:
+  - type: OpenAPI
+    url: openapi/hospitable-reviews-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hospitable.com/docs/public-api-docs/d862b3ee512e6-introduction
+  - type: APIReference
+    url: https://developer.hospitable.com/docs/public-api-docs/qc4x36uhxinx3-get-properties
+  - type: PostmanCollection
+    url: collections/hospitable.postman_collection.json
+  - type: OpenCollection
+    url: collections/hospitable.opencollection.json
+  - type: APIReference
+    url: https://developer.hospitable.com/docs/public-api-docs/ih7nc1ovefrcs-get-reservations
+  - type: APIReference
+    url: >-
+      https://developer.hospitable.com/docs/public-api-docs/n6jr1z9iwhm8w-get-reservation-messages
+- aid: hospitable:hospitable-user-api
+  name: Hospitable User API
+  description: The authenticated Hospitable user.
+  humanURL: https://developer.hospitable.com/docs/public-api-docs/qc4x36uhxinx3-get-properties
+  baseURL: https://public.api.hospitable.com/v2
+  tags:
+  - User
+  properties:
+  - type: OpenAPI
+    url: openapi/hospitable-user-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hospitable.com/docs/public-api-docs/d862b3ee512e6-introduction
+  - type: APIReference
+    url: https://developer.hospitable.com/docs/public-api-docs/qc4x36uhxinx3-get-properties
+  - type: PostmanCollection
+    url: collections/hospitable.postman_collection.json
+  - type: OpenCollection
+    url: collections/hospitable.opencollection.json
+  - type: APIReference
+    url: https://developer.hospitable.com/docs/public-api-docs/ih7nc1ovefrcs-get-reservations
+  - type: APIReference
+    url: >-
+      https://developer.hospitable.com/docs/public-api-docs/n6jr1z9iwhm8w-get-reservation-messages
 common:
 - type: AgenticAccess
   url: agentic-access/hospitable-agentic-access.yml
