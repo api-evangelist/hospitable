@@ -1,0 +1,26 @@
+{
+  "provider": "hospitable",
+  "sources": [
+    "hospitable-calendar-api-openapi.yml",
+    "hospitable-listings-api-openapi.yml",
+    "hospitable-messages-api-openapi.yml",
+    "hospitable-properties-api-openapi.yml",
+    "hospitable-reservations-api-openapi.yml",
+    "hospitable-reviews-api-openapi.yml",
+    "hospitable-user-api-openapi.yml"
+  ],
+  "outputs": [
+    "hospitable-calendar-api-openapi.yml",
+    "hospitable-listings-api-openapi.yml",
+    "hospitable-messages-api-openapi.yml",
+    "hospitable-properties-api-openapi.yml",
+    "hospitable-reservations-api-openapi.yml",
+    "hospitable-reviews-api-openapi.yml",
+    "hospitable-user-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
