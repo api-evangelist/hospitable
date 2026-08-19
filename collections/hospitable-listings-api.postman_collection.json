@@ -1,0 +1,191 @@
+{
+  "item": [
+    {
+      "id": "62b29ab8-3fa7-46a6-a069-0f778791567c",
+      "name": "Listings",
+      "description": {
+        "content": "Channel listings (Airbnb, Vrbo, Booking.com, direct) mapped to a property.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a1471f54-dc33-43dd-bc3e-a56c5195ab69",
+          "name": "List channel listings",
+          "request": {
+            "name": "List channel listings",
+            "description": {
+              "content": "Lists the individual channel listings (Airbnb, Vrbo, Booking.com, direct) across the account, each mapped to a Hospitable property.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "listings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4ac29ee5-d0ef-4943-852c-6059961b971f",
+              "name": "A paginated list of channel listings.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "listings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"property_id\": \"string\",\n      \"platform\": \"string\",\n      \"platform_id\": \"string\",\n      \"name\": \"string\",\n      \"status\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"property_id\": \"string\",\n      \"platform\": \"string\",\n      \"platform_id\": \"string\",\n      \"name\": \"string\",\n      \"status\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d7c9ca03-2946-420a-85d0-67b77b3de1f6",
+              "name": "The Bearer token is missing, invalid, or lacks the required scope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "listings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_2\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://public.api.hospitable.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "74dcb28f-58e8-490c-b616-5c56d1aedd61",
+    "name": "Hospitable Public Calendar Listings API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Hospitable Public API (v2) is a REST API for short-term and vacation rental hosts, property managers, and vendors. It exposes the core objects of the Hospitable platform - properties, channel listings, reservations, guest messages, calendar availability and pricing, and reviews - as resources manipulated with conventional HTTP methods (GET, POST, PUT, PATCH, DELETE) over HTTPS. Versioning is in the URL path (e.g. /v2/properties). Requests are authenticated with a Bearer token that is either a Personal Access Token (PAT) for personal use or an OAuth 2.0 access token for vendor integrations; PATs have access to all endpoints by default. Read access covers properties, reservations, and calendar; write access covers property calendar pricing and availability and sending guest messages. Hospitable was formerly known as Smartbnb. Note - the exact request/response schemas below are modeled from Hospitable's public documentation and community SDKs; verify field-level details against developer.hospitable.com.\n\nContact Support:\n Name: Hospitable",
+      "type": "text/plain"
+    }
+  }
+}

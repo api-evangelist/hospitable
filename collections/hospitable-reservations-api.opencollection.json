@@ -1,0 +1,83 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Hospitable Public Calendar Reservations API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Reservations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List reservations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://public.api.hospitable.com/v2/reservations",
+            "params": [
+              {
+                "name": "properties[]",
+                "value": "",
+                "type": "query",
+                "description": "One or more property UUIDs to filter by."
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated related resources (for example, guest, financials, listings)."
+              }
+            ]
+          },
+          "docs": "Lists reservations across connected channels. Filterable by one or more property UUIDs and by a check-in / check-out date range."
+        },
+        {
+          "info": {
+            "name": "Get a reservation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://public.api.hospitable.com/v2/reservations/:uuid",
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "The reservation UUID."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieves a single reservation by its UUID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

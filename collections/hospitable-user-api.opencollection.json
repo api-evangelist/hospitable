@@ -1,0 +1,35 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Hospitable Public Calendar User API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "User",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the authenticated user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://public.api.hospitable.com/v2/user"
+          },
+          "docs": "Returns the Hospitable user associated with the current token, including account and billing context. Modeled endpoint - confirm against the documentation."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

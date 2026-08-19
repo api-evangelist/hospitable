@@ -1,0 +1,464 @@
+{
+  "item": [
+    {
+      "id": "96e91759-d62e-452a-b43b-977516acc67d",
+      "name": "Calendar",
+      "description": {
+        "content": "Nightly availability, pricing, and restrictions per property.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8c1424a1-9311-4d7c-bfa6-465ab01c69e1",
+          "name": "Get a property calendar",
+          "request": {
+            "name": "Get a property calendar",
+            "description": {
+              "content": "Retrieves the nightly calendar for a property over a date range - availability, price, and minimum-stay and other restrictions per date.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "properties",
+                ":uuid",
+                "calendar"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<date>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<date>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "uuid",
+                  "description": "(Required) The property UUID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7e863577-7ff6-4c7e-9ad5-6604654af5fc",
+              "name": "The calendar days for the property.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ":uuid",
+                    "calendar"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "uuid",
+                      "description": "(Required) The property UUID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"date\": \"2024-12-31\",\n      \"available\": false,\n      \"status\": \"string\",\n      \"price\": {\n        \"amount\": 9735,\n        \"currency\": \"string\"\n      },\n      \"min_nights\": 874,\n      \"closed_for_checkin\": false,\n      \"closed_for_checkout\": true\n    },\n    {\n      \"date\": \"1985-03-02\",\n      \"available\": false,\n      \"status\": \"string\",\n      \"price\": {\n        \"amount\": 6469,\n        \"currency\": \"string\"\n      },\n      \"min_nights\": 8461,\n      \"closed_for_checkin\": true,\n      \"closed_for_checkout\": false\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2626bc5d-27d0-4187-8673-c1009a6ed7c1",
+              "name": "The Bearer token is missing, invalid, or lacks the required scope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ":uuid",
+                    "calendar"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "uuid",
+                      "description": "(Required) The property UUID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_2\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "73eccd86-b940-4f12-a3b4-94e578527759",
+          "name": "Update a property calendar",
+          "request": {
+            "name": "Update a property calendar",
+            "description": {
+              "content": "Updates availability and/or pricing for one or more dates on a property calendar. Requires write access. Hospitable syncs the change to the connected channels. Modeled endpoint - confirm method and body against the documentation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "properties",
+                ":uuid",
+                "calendar"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "uuid",
+                  "description": "(Required) The property UUID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dates\": [\n    {\n      \"date\": \"<date>\",\n      \"available\": \"<boolean>\",\n      \"status\": \"<string>\",\n      \"price\": {\n        \"amount\": \"<integer>\",\n        \"currency\": \"<string>\"\n      },\n      \"min_nights\": \"<integer>\",\n      \"closed_for_checkin\": \"<boolean>\",\n      \"closed_for_checkout\": \"<boolean>\"\n    },\n    {\n      \"date\": \"<date>\",\n      \"available\": \"<boolean>\",\n      \"status\": \"<string>\",\n      \"price\": {\n        \"amount\": \"<integer>\",\n        \"currency\": \"<string>\"\n      },\n      \"min_nights\": \"<integer>\",\n      \"closed_for_checkin\": \"<boolean>\",\n      \"closed_for_checkout\": \"<boolean>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d6bad1a3-52bd-4443-93b1-e6dd4d3aa4b0",
+              "name": "The updated calendar days.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ":uuid",
+                    "calendar"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "uuid",
+                      "description": "(Required) The property UUID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dates\": [\n    {\n      \"date\": \"<date>\",\n      \"available\": \"<boolean>\",\n      \"status\": \"<string>\",\n      \"price\": {\n        \"amount\": \"<integer>\",\n        \"currency\": \"<string>\"\n      },\n      \"min_nights\": \"<integer>\",\n      \"closed_for_checkin\": \"<boolean>\",\n      \"closed_for_checkout\": \"<boolean>\"\n    },\n    {\n      \"date\": \"<date>\",\n      \"available\": \"<boolean>\",\n      \"status\": \"<string>\",\n      \"price\": {\n        \"amount\": \"<integer>\",\n        \"currency\": \"<string>\"\n      },\n      \"min_nights\": \"<integer>\",\n      \"closed_for_checkin\": \"<boolean>\",\n      \"closed_for_checkout\": \"<boolean>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"date\": \"<date>\",\n      \"available\": \"<boolean>\",\n      \"status\": \"<string>\",\n      \"price\": {\n        \"amount\": \"<integer>\",\n        \"currency\": \"<string>\"\n      },\n      \"min_nights\": \"<integer>\",\n      \"closed_for_checkin\": \"<boolean>\",\n      \"closed_for_checkout\": \"<boolean>\"\n    },\n    {\n      \"date\": \"<date>\",\n      \"available\": \"<boolean>\",\n      \"status\": \"<string>\",\n      \"price\": {\n        \"amount\": \"<integer>\",\n        \"currency\": \"<string>\"\n      },\n      \"min_nights\": \"<integer>\",\n      \"closed_for_checkin\": \"<boolean>\",\n      \"closed_for_checkout\": \"<boolean>\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "94923375-5d80-4106-9fae-0d5f5b139a7c",
+              "name": "The Bearer token is missing, invalid, or lacks the required scope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ":uuid",
+                    "calendar"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "uuid",
+                      "description": "(Required) The property UUID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dates\": [\n    {\n      \"date\": \"<date>\",\n      \"available\": \"<boolean>\",\n      \"status\": \"<string>\",\n      \"price\": {\n        \"amount\": \"<integer>\",\n        \"currency\": \"<string>\"\n      },\n      \"min_nights\": \"<integer>\",\n      \"closed_for_checkin\": \"<boolean>\",\n      \"closed_for_checkout\": \"<boolean>\"\n    },\n    {\n      \"date\": \"<date>\",\n      \"available\": \"<boolean>\",\n      \"status\": \"<string>\",\n      \"price\": {\n        \"amount\": \"<integer>\",\n        \"currency\": \"<string>\"\n      },\n      \"min_nights\": \"<integer>\",\n      \"closed_for_checkin\": \"<boolean>\",\n      \"closed_for_checkout\": \"<boolean>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e9630d72-61aa-4e54-9ee9-24952033696a",
+              "name": "The request body failed validation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ":uuid",
+                    "calendar"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "uuid",
+                      "description": "(Required) The property UUID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dates\": [\n    {\n      \"date\": \"<date>\",\n      \"available\": \"<boolean>\",\n      \"status\": \"<string>\",\n      \"price\": {\n        \"amount\": \"<integer>\",\n        \"currency\": \"<string>\"\n      },\n      \"min_nights\": \"<integer>\",\n      \"closed_for_checkin\": \"<boolean>\",\n      \"closed_for_checkout\": \"<boolean>\"\n    },\n    {\n      \"date\": \"<date>\",\n      \"available\": \"<boolean>\",\n      \"status\": \"<string>\",\n      \"price\": {\n        \"amount\": \"<integer>\",\n        \"currency\": \"<string>\"\n      },\n      \"min_nights\": \"<integer>\",\n      \"closed_for_checkin\": \"<boolean>\",\n      \"closed_for_checkout\": \"<boolean>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://public.api.hospitable.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "35c423b5-1c84-4cee-8619-c31fc4b4c8bb",
+    "name": "Hospitable Public Calendar API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Hospitable Public API (v2) is a REST API for short-term and vacation rental hosts, property managers, and vendors. It exposes the core objects of the Hospitable platform - properties, channel listings, reservations, guest messages, calendar availability and pricing, and reviews - as resources manipulated with conventional HTTP methods (GET, POST, PUT, PATCH, DELETE) over HTTPS. Versioning is in the URL path (e.g. /v2/properties). Requests are authenticated with a Bearer token that is either a Personal Access Token (PAT) for personal use or an OAuth 2.0 access token for vendor integrations; PATs have access to all endpoints by default. Read access covers properties, reservations, and calendar; write access covers property calendar pricing and availability and sending guest messages. Hospitable was formerly known as Smartbnb. Note - the exact request/response schemas below are modeled from Hospitable's public documentation and community SDKs; verify field-level details against developer.hospitable.com.\n\nContact Support:\n Name: Hospitable",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Hospitable Public Calendar Properties API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Properties",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List properties",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://public.api.hospitable.com/v2/properties",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated related resources to include (for example, listings, details, user)."
+              }
+            ]
+          },
+          "docs": "Lists the properties connected to the authenticated account, with pagination. Supports including related resources such as listings and details via the `include` query parameter."
+        },
+        {
+          "info": {
+            "name": "Get a property",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://public.api.hospitable.com/v2/properties/:uuid",
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "The property UUID."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated related resources to include."
+              }
+            ]
+          },
+          "docs": "Retrieves a single property by its UUID."
+        },
+        {
+          "info": {
+            "name": "Search available properties",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://public.api.hospitable.com/v2/properties/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Searches connected properties for availability over a date range and occupancy. Modeled endpoint - confirm the exact request body against the documentation."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

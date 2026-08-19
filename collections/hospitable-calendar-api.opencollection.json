@@ -1,0 +1,76 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Hospitable Public Calendar API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Calendar",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a property calendar",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://public.api.hospitable.com/v2/properties/:uuid/calendar",
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "The property UUID."
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieves the nightly calendar for a property over a date range - availability, price, and minimum-stay and other restrictions per date."
+        },
+        {
+          "info": {
+            "name": "Update a property calendar",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://public.api.hospitable.com/v2/properties/:uuid/calendar",
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "The property UUID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates availability and/or pricing for one or more dates on a property calendar. Requires write access. Hospitable syncs the change to the connected channels. Modeled endpoint - confirm method and body against the documentation."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

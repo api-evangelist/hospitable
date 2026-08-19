@@ -1,0 +1,454 @@
+{
+  "item": [
+    {
+      "id": "99153232-7442-47a2-91c9-08d53aaf3e7f",
+      "name": "Reservations",
+      "description": {
+        "content": "Bookings across all connected channels.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0beec42b-ac48-4f88-98a1-569ae87c06d2",
+          "name": "List reservations",
+          "request": {
+            "name": "List reservations",
+            "description": {
+              "content": "Lists reservations across connected channels. Filterable by one or more property UUIDs and by a check-in / check-out date range.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reservations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "properties[]",
+                  "value": "<string>",
+                  "description": "One or more property UUIDs to filter by."
+                },
+                {
+                  "disabled": false,
+                  "key": "properties[]",
+                  "value": "<string>",
+                  "description": "One or more property UUIDs to filter by."
+                },
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Comma-separated related resources (for example, guest, financials, listings)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "020de5d8-9117-4d74-a2e9-727df95b93db",
+              "name": "A paginated list of reservations.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reservations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "properties[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "properties[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"platform\": \"string\",\n      \"platform_id\": \"string\",\n      \"property_id\": \"string\",\n      \"status\": \"string\",\n      \"check_in\": \"1950-02-22T04:27:54.123Z\",\n      \"check_out\": \"1954-12-29T18:54:39.779Z\",\n      \"nights\": 2408,\n      \"guests\": {\n        \"total\": 7921,\n        \"adult_count\": 7013,\n        \"child_count\": 8216,\n        \"infant_count\": 2784\n      },\n      \"guest\": {\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"email\": \"string\",\n        \"phone\": \"string\",\n        \"picture\": \"https://KSaEgKxh.rjdZo\",\n        \"location\": \"string\"\n      },\n      \"financials\": {}\n    },\n    {\n      \"id\": \"string\",\n      \"platform\": \"string\",\n      \"platform_id\": \"string\",\n      \"property_id\": \"string\",\n      \"status\": \"string\",\n      \"check_in\": \"1987-08-19T15:47:29.832Z\",\n      \"check_out\": \"1976-10-06T16:12:02.476Z\",\n      \"nights\": 1426,\n      \"guests\": {\n        \"total\": 7245,\n        \"adult_count\": 2748,\n        \"child_count\": 709,\n        \"infant_count\": 2043\n      },\n      \"guest\": {\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"email\": \"string\",\n        \"phone\": \"string\",\n        \"picture\": \"http://vCNmcKoTsPFKazuLyiiJKoEyIuOT.wjofIPl+SiDzBwhqHZy.x1mggIEp+cbQmD2oANKt\",\n        \"location\": \"string\"\n      },\n      \"financials\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e4fae449-0ccc-4687-9130-e1926a891240",
+              "name": "The Bearer token is missing, invalid, or lacks the required scope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reservations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "properties[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "properties[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b45318b0-f4d8-46ed-9cc8-320f38122b01",
+          "name": "Get a reservation",
+          "request": {
+            "name": "Get a reservation",
+            "description": {
+              "content": "Retrieves a single reservation by its UUID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reservations",
+                ":uuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "uuid",
+                  "description": "(Required) The reservation UUID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8152f202-595a-43bf-8da1-18f4070c80bc",
+              "name": "The requested reservation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reservations",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "uuid",
+                      "description": "(Required) The reservation UUID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"platform\": \"string\",\n    \"platform_id\": \"string\",\n    \"property_id\": \"string\",\n    \"status\": \"string\",\n    \"check_in\": \"1998-11-22T16:12:44.237Z\",\n    \"check_out\": \"1986-09-19T11:47:49.734Z\",\n    \"nights\": 6040,\n    \"guests\": {\n      \"total\": 5004,\n      \"adult_count\": 3023,\n      \"child_count\": 524,\n      \"infant_count\": 9847\n    },\n    \"guest\": {\n      \"first_name\": \"string\",\n      \"last_name\": \"string\",\n      \"email\": \"string\",\n      \"phone\": \"string\",\n      \"picture\": \"https://NxjwXwAXdtpDZZiaMTJvURT.rhkro9C,AYVDtsIoo1CBdquWO8FxZxGbAmCGD4ywOiWrZn\",\n      \"location\": \"string\"\n    },\n    \"financials\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cd56d00b-2257-4570-b15d-1e1877b4d257",
+              "name": "The Bearer token is missing, invalid, or lacks the required scope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reservations",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "uuid",
+                      "description": "(Required) The reservation UUID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bb5fdd64-d731-4657-b6c2-071906ba30bb",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reservations",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "uuid",
+                      "description": "(Required) The reservation UUID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://public.api.hospitable.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "6fbc7735-7018-45a8-a9c5-792de6fa6e50",
+    "name": "Hospitable Public Calendar Reservations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Hospitable Public API (v2) is a REST API for short-term and vacation rental hosts, property managers, and vendors. It exposes the core objects of the Hospitable platform - properties, channel listings, reservations, guest messages, calendar availability and pricing, and reviews - as resources manipulated with conventional HTTP methods (GET, POST, PUT, PATCH, DELETE) over HTTPS. Versioning is in the URL path (e.g. /v2/properties). Requests are authenticated with a Bearer token that is either a Personal Access Token (PAT) for personal use or an OAuth 2.0 access token for vendor integrations; PATs have access to all endpoints by default. Read access covers properties, reservations, and calendar; write access covers property calendar pricing and availability and sending guest messages. Hospitable was formerly known as Smartbnb. Note - the exact request/response schemas below are modeled from Hospitable's public documentation and community SDKs; verify field-level details against developer.hospitable.com.\n\nContact Support:\n Name: Hospitable",
+      "type": "text/plain"
+    }
+  }
+}

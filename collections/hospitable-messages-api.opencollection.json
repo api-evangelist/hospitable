@@ -1,0 +1,66 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Hospitable Public Calendar Messages API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Messages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get reservation messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://public.api.hospitable.com/v2/reservations/:uuid/messages",
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "The reservation UUID."
+              }
+            ]
+          },
+          "docs": "Lists the guest-host message thread for a reservation."
+        },
+        {
+          "info": {
+            "name": "Send a message",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://public.api.hospitable.com/v2/reservations/:uuid/messages",
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "The reservation UUID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends a message to the guest on a reservation. Hospitable relays the message to the underlying channel (Airbnb, Vrbo, Booking.com, or direct)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

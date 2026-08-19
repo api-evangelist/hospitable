@@ -1,0 +1,582 @@
+{
+  "item": [
+    {
+      "id": "ad331134-4f6a-453d-855c-cd22fd320212",
+      "name": "Properties",
+      "description": {
+        "content": "Vacation rental properties connected to the account.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a7a06c9f-b1ac-44d5-8225-3ef1ce688bf0",
+          "name": "List properties",
+          "request": {
+            "name": "List properties",
+            "description": {
+              "content": "Lists the properties connected to the authenticated account, with pagination. Supports including related resources such as listings and details via the `include` query parameter.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "properties"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Page number for pagination."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "<integer>",
+                  "description": "Number of results per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Comma-separated related resources to include (for example, listings, details, user)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "776c7074-9b37-449c-8984-a15dc53edae7",
+              "name": "A paginated list of properties.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"public_name\": \"string\",\n      \"picture\": \"http://TYGWQFIDqaBtQRTEjTDxiuiTg.hsenOXQOCVrHC,rEAmaFlYNP,u7zs1nZDGuUkbqpxVAVDI-KUPfT-O8FHtPAwQ,XQ9ChrVE3kU\",\n      \"address\": {\n        \"street\": \"string\",\n        \"city\": \"string\",\n        \"state\": \"string\",\n        \"country_code\": \"string\",\n        \"zip\": \"string\"\n      },\n      \"timezone\": \"string\",\n      \"capacity\": {\n        \"max\": 2713,\n        \"bedrooms\": 7610,\n        \"beds\": 6994,\n        \"bathrooms\": 5217.703651909925\n      },\n      \"currency\": \"string\",\n      \"listed\": true,\n      \"amenities\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"public_name\": \"string\",\n      \"picture\": \"https://tSqoNeVAJKyUZVFEJbHjHkQ.vlncUcUhPlYe43Nki.ABl2A8,iSB8zXFBbSH8dszbfDKF4f1bEN.I\",\n      \"address\": {\n        \"street\": \"string\",\n        \"city\": \"string\",\n        \"state\": \"string\",\n        \"country_code\": \"string\",\n        \"zip\": \"string\"\n      },\n      \"timezone\": \"string\",\n      \"capacity\": {\n        \"max\": 8323,\n        \"bedrooms\": 3851,\n        \"beds\": 6792,\n        \"bathrooms\": 4710.22315990961\n      },\n      \"currency\": \"string\",\n      \"listed\": true,\n      \"amenities\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7af69b93-d195-4e88-a6b7-9ba3816c8942",
+              "name": "The Bearer token is missing, invalid, or lacks the required scope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6f627b02-3425-472f-850b-1644007b26f0",
+          "name": "Get a property",
+          "request": {
+            "name": "Get a property",
+            "description": {
+              "content": "Retrieves a single property by its UUID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "properties",
+                ":uuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Comma-separated related resources to include."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "uuid",
+                  "description": "(Required) The property UUID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1095fdf3-8fa8-44e4-a8ee-a1fce5df294a",
+              "name": "The requested property.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "uuid",
+                      "description": "(Required) The property UUID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"public_name\": \"string\",\n    \"picture\": \"http://wYAo.twHtGKTaB.OSB3\",\n    \"address\": {\n      \"street\": \"string\",\n      \"city\": \"string\",\n      \"state\": \"string\",\n      \"country_code\": \"string\",\n      \"zip\": \"string\"\n    },\n    \"timezone\": \"string\",\n    \"capacity\": {\n      \"max\": 4759,\n      \"bedrooms\": 3202,\n      \"beds\": 7132,\n      \"bathrooms\": 8768.755416385071\n    },\n    \"currency\": \"string\",\n    \"listed\": false,\n    \"amenities\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "466dda16-1f11-425a-86a1-e9e75793a380",
+              "name": "The Bearer token is missing, invalid, or lacks the required scope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "uuid",
+                      "description": "(Required) The property UUID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_2\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "073bf95c-2679-4eb6-bbfe-73fd569a67db",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "uuid",
+                      "description": "(Required) The property UUID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_2\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7c3f10fd-6bd7-4629-9247-84aace6e464d",
+          "name": "Search available properties",
+          "request": {
+            "name": "Search available properties",
+            "description": {
+              "content": "Searches connected properties for availability over a date range and occupancy. Modeled endpoint - confirm the exact request body against the documentation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "properties",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"start_date\": \"<date>\",\n  \"end_date\": \"<date>\",\n  \"guests\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b80adc11-3645-4997-a3fb-c3fd09a35473",
+              "name": "Matching available properties.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"start_date\": \"<date>\",\n  \"end_date\": \"<date>\",\n  \"guests\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"public_name\": \"string\",\n      \"picture\": \"http://ReiqKCOPgfxD.utxbFjpSOX.KR.AAjQL1obe8IK6YEWLJmGvIGCZ3ryPl5,l5X0ErI,-M3S8lg\",\n      \"address\": {\n        \"street\": \"string\",\n        \"city\": \"string\",\n        \"state\": \"string\",\n        \"country_code\": \"string\",\n        \"zip\": \"string\"\n      },\n      \"timezone\": \"string\",\n      \"capacity\": {\n        \"max\": 9547,\n        \"bedrooms\": 6989,\n        \"beds\": 367,\n        \"bathrooms\": 1020.4737888006521\n      },\n      \"currency\": \"string\",\n      \"listed\": false,\n      \"amenities\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"public_name\": \"string\",\n      \"picture\": \"https://OkNxjheJckOqWOYuRX.geNgmaV7ZbtJGL-Bojv7luZ3xpJ,VqnbJHPy.K6Vf1L-EiZ8YscdFYf,HDZQfz1cdrXrWcaGg.isW60t\",\n      \"address\": {\n        \"street\": \"string\",\n        \"city\": \"string\",\n        \"state\": \"string\",\n        \"country_code\": \"string\",\n        \"zip\": \"string\"\n      },\n      \"timezone\": \"string\",\n      \"capacity\": {\n        \"max\": 5418,\n        \"bedrooms\": 3245,\n        \"beds\": 621,\n        \"bathrooms\": 8331.202297984719\n      },\n      \"currency\": \"string\",\n      \"listed\": true,\n      \"amenities\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0de60a15-c9b5-43ae-a188-c3497adf2235",
+              "name": "The Bearer token is missing, invalid, or lacks the required scope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"start_date\": \"<date>\",\n  \"end_date\": \"<date>\",\n  \"guests\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_2\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://public.api.hospitable.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "3b301a6d-b406-4db9-9f2d-c5f6521027fc",
+    "name": "Hospitable Public Calendar Properties API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Hospitable Public API (v2) is a REST API for short-term and vacation rental hosts, property managers, and vendors. It exposes the core objects of the Hospitable platform - properties, channel listings, reservations, guest messages, calendar availability and pricing, and reviews - as resources manipulated with conventional HTTP methods (GET, POST, PUT, PATCH, DELETE) over HTTPS. Versioning is in the URL path (e.g. /v2/properties). Requests are authenticated with a Bearer token that is either a Personal Access Token (PAT) for personal use or an OAuth 2.0 access token for vendor integrations; PATs have access to all endpoints by default. Read access covers properties, reservations, and calendar; write access covers property calendar pricing and availability and sending guest messages. Hospitable was formerly known as Smartbnb. Note - the exact request/response schemas below are modeled from Hospitable's public documentation and community SDKs; verify field-level details against developer.hospitable.com.\n\nContact Support:\n Name: Hospitable",
+      "type": "text/plain"
+    }
+  }
+}

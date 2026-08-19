@@ -1,0 +1,162 @@
+{
+  "item": [
+    {
+      "id": "55e30642-3216-47dc-af4b-1f55f520bef2",
+      "name": "User",
+      "description": {
+        "content": "The authenticated Hospitable user.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "df857d1d-efb4-4e38-abba-96a0faac37f5",
+          "name": "Get the authenticated user",
+          "request": {
+            "name": "Get the authenticated user",
+            "description": {
+              "content": "Returns the Hospitable user associated with the current token, including account and billing context. Modeled endpoint - confirm against the documentation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "user"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "afa02622-835f-46e8-abe4-ac4069eaa285",
+              "name": "The authenticated user.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"email\": \"string\",\n    \"timezone\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c31f4816-28ce-4e6e-9d81-f52c29181ebf",
+              "name": "The Bearer token is missing, invalid, or lacks the required scope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_2\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://public.api.hospitable.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "fd3277ca-6214-4cbc-8b30-bcc3fe3d5fa9",
+    "name": "Hospitable Public Calendar User API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Hospitable Public API (v2) is a REST API for short-term and vacation rental hosts, property managers, and vendors. It exposes the core objects of the Hospitable platform - properties, channel listings, reservations, guest messages, calendar availability and pricing, and reviews - as resources manipulated with conventional HTTP methods (GET, POST, PUT, PATCH, DELETE) over HTTPS. Versioning is in the URL path (e.g. /v2/properties). Requests are authenticated with a Bearer token that is either a Personal Access Token (PAT) for personal use or an OAuth 2.0 access token for vendor integrations; PATs have access to all endpoints by default. Read access covers properties, reservations, and calendar; write access covers property calendar pricing and availability and sending guest messages. Hospitable was formerly known as Smartbnb. Note - the exact request/response schemas below are modeled from Hospitable's public documentation and community SDKs; verify field-level details against developer.hospitable.com.\n\nContact Support:\n Name: Hospitable",
+      "type": "text/plain"
+    }
+  }
+}
