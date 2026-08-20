@@ -40,6 +40,10 @@ apis:
 - aid: hospitable:hospitable-webhooks-api
   name: Hospitable Webhooks API
   tags:
+  - Webhook
+  - Event
+  - Notification
+  tags_raw:
   - Webhooks
   - Events
   - Notifications
@@ -109,6 +113,8 @@ apis:
   humanURL: https://developer.hospitable.com/docs/public-api-docs/qc4x36uhxinx3-get-properties
   baseURL: https://public.api.hospitable.com/v2
   tags:
+  - Message
+  tags_raw:
   - Messages
   properties:
   - type: OpenAPI
