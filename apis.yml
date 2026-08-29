@@ -237,6 +237,9 @@ apis:
     url: >-
       https://developer.hospitable.com/docs/public-api-docs/n6jr1z9iwhm8w-get-reservation-messages
 common:
+- type: CapabilityMap
+  url: capabilities/hospitable-capability-edges.yml
+  name: Hospitable Business Capability Map
 - type: AgenticAccess
   url: agentic-access/hospitable-agentic-access.yml
 - type: DomainSecurity

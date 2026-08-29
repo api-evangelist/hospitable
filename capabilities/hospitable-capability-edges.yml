@@ -1,0 +1,64 @@
+slug: hospitable
+provider: Hospitable
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Travel & Hospitality
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 5
+edges:
+- tag: Reservations
+  spec_file: hospitable-reservations-api-openapi.yml
+  capability_id: BC-4020
+  capability_id_l1: BC-4020
+  capability_name: Reservation & Booking Management
+  confidence: 0.85
+  evidence: 'GET /reservations  listReservations  List reservations; schemas: Reservation, Error, Guest'
+  reason: Read access to the reservation record for short-term rentals is squarely reservation & booking
+    management; only reads, so no specific sub-capability (capture vs modification) is named.
+- tag: Calendar
+  spec_file: hospitable-calendar-api-openapi.yml
+  capability_id: BC-4030.30
+  capability_id_l1: BC-4030
+  capability_name: Inventory & Capacity Controls
+  confidence: 0.7
+  evidence: GET /properties/{uuid}/calendar ... PUT /properties/{uuid}/calendar  Update a property calendar;
+    write access covers property calendar pricing and availability
+  reason: Operations read and write per-day availability and pricing for a rental property, i.e. inventory/availability
+    controls and rate setting. Sub-capability ambiguous between inventory controls and pricing; inventory
+    & capacity controls fits the availability calendar best.
+- tag: Messages
+  spec_file: hospitable-messages-api-openapi.yml
+  capability_id: BC-430.10
+  capability_id_l1: BC-430
+  capability_name: Customer Inquiry Management
+  confidence: 0.7
+  evidence: POST /reservations/{uuid}/messages  sendReservationMessage  Send a message; AI-powered guest
+    messaging in a unified inbox
+  reason: Guest messaging threads tied to a reservation — inbound/outbound guest communication handling,
+    i.e. customer inquiry management. Could also be seen as guest services, but the operations are pure
+    messaging.
+- tag: Properties
+  spec_file: hospitable-properties-api-openapi.yml
+  capability_id: BC-4000.10
+  capability_id_l1: BC-4000
+  capability_name: Lodging Product Management
+  confidence: 0.7
+  evidence: GET /properties  List properties; POST /properties/search  Search available properties
+  reason: Reads the master record of bookable accommodation units (rental properties) and searches availability
+    — lodging product master. Some ambiguity with distribution/search, so moderate confidence.
+- tag: Reviews
+  spec_file: hospitable-reviews-api-openapi.yml
+  capability_id: BC-430.50
+  capability_id_l1: BC-430
+  capability_name: Customer Feedback Management
+  confidence: 0.7
+  evidence: GET /properties/{uuid}/reviews  listPropertyReviews; POST /reviews/{uuid}/response  respondToReview
+  reason: Guest reviews and host responses are voice-of-customer feedback capture and response. Could
+    arguably be brand/quality, but feedback management is the closest fit.
