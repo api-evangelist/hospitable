@@ -12,6 +12,18 @@ description: Hospitable (formerly Smartbnb) is a short-term and vacation rental
   availability and pricing, and reviews, authenticated with OAuth 2.0 (for vendors)
   or Personal Access Tokens (for personal use). v2 webhooks push reservation,
   property, message, and review events to a host's server.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: open
