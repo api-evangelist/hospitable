@@ -39,6 +39,13 @@ accessModel:
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/hospitable.png
 tags:
+- Vacation Rentals
+- Short-Term Rental
+- Property Management
+- Airbnb
+- Hospitality
+- Automation
+tags_raw:
 - Vacation Rental
 - Short-Term Rental
 - Property Management
