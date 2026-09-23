@@ -1,13 +1,7 @@
 {
   "provider": "hospitable",
   "sources": [
-    "hospitable-calendar-api-openapi.yml",
-    "hospitable-listings-api-openapi.yml",
-    "hospitable-messages-api-openapi.yml",
-    "hospitable-properties-api-openapi.yml",
-    "hospitable-reservations-api-openapi.yml",
-    "hospitable-reviews-api-openapi.yml",
-    "hospitable-user-api-openapi.yml"
+    "_original/hospitable-openapi.yml"
   ],
   "outputs": [
     "hospitable-calendar-api-openapi.yml",
@@ -21,6 +15,18 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "hospitable-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "hospitable-calendar-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "hospitable-listings-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "hospitable-messages-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "hospitable-properties-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "hospitable-reservations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "hospitable-reviews-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "hospitable-user-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

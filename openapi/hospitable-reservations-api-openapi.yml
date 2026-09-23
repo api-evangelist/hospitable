@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Hospitable Public Calendar Reservations API
-  description: The Hospitable Public API (v2) is a REST API for short-term and vacation rental hosts, property managers, and vendors. It exposes the core objects of the Hospitable platform - properties, channel listings, reservations, guest messages, calendar availability and pricing, and reviews - as resources manipulated with conventional HTTP methods (GET, POST, PUT, PATCH, DELETE) over HTTPS. Versioning is in the URL path (e.g. /v2/properties). Requests are authenticated with a Bearer token that is either a Personal Access Token (PAT) for personal use or an OAuth 2.0 access token for vendor integrations; PATs have access to all endpoints by default. Read access covers properties, reservations, and calendar; write access covers property calendar pricing and availability and sending guest messages. Hospitable was formerly known as Smartbnb. Note - the exact request/response schemas below are modeled from Hospitable's public documentation and community SDKs; verify field-level details against developer.hospitable.com.
+  title: Hospitable Public Reservations API
+  description: The Hospitable Public API (v2) is a REST API for short-term and vacation rental hosts, property managers, and vendors.
   version: '2.0'
   contact:
     name: Hospitable
@@ -165,14 +165,14 @@ components:
         location:
           type: string
   responses:
-    NotFound:
-      description: The requested resource was not found.
+    Unauthorized:
+      description: The Bearer token is missing, invalid, or lacks the required scope.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: The Bearer token is missing, invalid, or lacks the required scope.
+    NotFound:
+      description: The requested resource was not found.
       content:
         application/json:
           schema:
