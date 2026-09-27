@@ -88,15 +88,23 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  parameters:
-    ReservationUuid:
-      name: uuid
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The reservation UUID.
   schemas:
+    Guest:
+      type: object
+      properties:
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        picture:
+          type: string
+          format: uri
+        location:
+          type: string
     Reservation:
       type: object
       properties:
@@ -148,35 +156,27 @@ components:
             type: array
             items:
               type: string
-    Guest:
-      type: object
-      properties:
-        first_name:
-          type: string
-        last_name:
-          type: string
-        email:
-          type: string
-        phone:
-          type: string
-        picture:
-          type: string
-          format: uri
-        location:
-          type: string
   responses:
-    Unauthorized:
-      description: The Bearer token is missing, invalid, or lacks the required scope.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     NotFound:
       description: The requested resource was not found.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: The Bearer token is missing, invalid, or lacks the required scope.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    ReservationUuid:
+      name: uuid
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The reservation UUID.
   securitySchemes:
     bearerAuth:
       type: http

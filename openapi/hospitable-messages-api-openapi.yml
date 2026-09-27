@@ -76,33 +76,6 @@ paths:
         '422':
           $ref: '#/components/responses/UnprocessableEntity'
 components:
-  parameters:
-    ReservationUuid:
-      name: uuid
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The reservation UUID.
-  responses:
-    Unauthorized:
-      description: The Bearer token is missing, invalid, or lacks the required scope.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    UnprocessableEntity:
-      description: The request body failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
     Error:
       type: object
@@ -137,6 +110,33 @@ components:
         created_at:
           type: string
           format: date-time
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: The Bearer token is missing, invalid, or lacks the required scope.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: The request body failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    ReservationUuid:
+      name: uuid
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The reservation UUID.
   securitySchemes:
     bearerAuth:
       type: http

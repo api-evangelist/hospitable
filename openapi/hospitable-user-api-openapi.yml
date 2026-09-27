@@ -37,17 +37,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    User:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        email:
-          type: string
-        timezone:
-          type: string
     Error:
       type: object
       properties:
@@ -59,6 +48,17 @@ components:
             type: array
             items:
               type: string
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        timezone:
+          type: string
   responses:
     Unauthorized:
       description: The Bearer token is missing, invalid, or lacks the required scope.
