@@ -83,14 +83,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
+    UnprocessableEntity:
+      description: The request body failed validation.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    UnprocessableEntity:
-      description: The request body failed validation.
+    NotFound:
+      description: The requested resource was not found.
       content:
         application/json:
           schema:
