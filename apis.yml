@@ -56,7 +56,7 @@ tags_raw:
 - Hospitality
 - Automation
 created: '2026-07-03'
-modified: '2026-07-03'
+modified: '2026-10-06'
 specificationVersion: '0.23'
 apis:
 - aid: hospitable:hospitable-webhooks-api
@@ -247,6 +247,8 @@ apis:
     url: >-
       https://developer.hospitable.com/docs/public-api-docs/n6jr1z9iwhm8w-get-reservation-messages
 common:
+- url: https://hospitable.com/blog
+  type: Blog
 - type: CapabilityMap
   url: capabilities/hospitable-capability-edges.yml
   name: Hospitable Business Capability Map
