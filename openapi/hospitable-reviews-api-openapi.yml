@@ -106,6 +106,14 @@ components:
             type: array
             items:
               type: string
+  parameters:
+    PropertyUuid:
+      name: uuid
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The property UUID.
   responses:
     Unauthorized:
       description: The Bearer token is missing, invalid, or lacks the required scope.
@@ -119,14 +127,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    PropertyUuid:
-      name: uuid
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The property UUID.
   securitySchemes:
     bearerAuth:
       type: http

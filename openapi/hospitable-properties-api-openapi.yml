@@ -118,20 +118,39 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  parameters:
+    PropertyUuid:
+      name: uuid
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The property UUID.
   responses:
-    Unauthorized:
-      description: The Bearer token is missing, invalid, or lacks the required scope.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     NotFound:
       description: The requested resource was not found.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: The Bearer token is missing, invalid, or lacks the required scope.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
     Property:
       type: object
       properties:
@@ -179,25 +198,6 @@ components:
           type: array
           items:
             type: string
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-        errors:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
-  parameters:
-    PropertyUuid:
-      name: uuid
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The property UUID.
   securitySchemes:
     bearerAuth:
       type: http
