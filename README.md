@@ -1,4 +1,4 @@
-# Hospitable (hospitable)
+# Hospitable
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,175 +64,137 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Hospitable (formerly Smartbnb) is a short-term and vacation rental automation platform for Airbnb, Vrbo, Booking.com, and direct-booking hosts and property managers. It centralizes multi-channel calendar syncing, AI-powered guest messaging in a unified inbox, cleaning and operations tasks, reviews, and a branded direct booking website. The Hospitable Public API v2 is a REST API at `https://public.api.hospitable.com/v2` that lets hosts and vendors programmatically manage properties, channel listings, reservations, guest messaging, calendar availability and pricing, and reviews, authenticated with OAuth 2.0 (for vendors) or Personal Access Tokens (for personal use). v2 webhooks push reservation, property, message, and review events to a host's server.
+Hospitable (formerly Smartbnb) is a short-term and vacation rental automation platform for Airbnb, Vrbo, Booking.com, and direct-booking hosts and property managers. It centralizes multi-channel calendar syncing, AI-powered guest messaging in a unified inbox, cleaning and operations tasks, reviews, and a direct booking website. The Hospitable Public API v2 is a REST API at https://public.api.hospitable.com/v2 that lets hosts and vendors programmatically manage properties, channel listings, reservations, guest messaging, calendar availability and pricing, and reviews, authenticated with OAuth 2.0 (for vendors) or Personal Access Tokens (for personal use). v2 webhooks push reservation, property, message, and review events to a host's server.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/hospitable/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/hospitable/refs/heads/main/apis.yml)
+**Areas:** Vacation Rentals · Short-Term Rental · Property Management · Airbnb · Hospitality · Automation
 
-## Tags
+## Hospitable on APIs.io
 
-- Vacation Rental
-- Short-Term Rental
-- Property Management
-- Airbnb
-- Hospitality
-- Automation
+Everything profiled for Hospitable is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/hospitable/](https://apis.io/providers/hospitable/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (8)
 
-- **Created:** 2026-07-03
-- **Modified:** 2026-07-03
+- [Hospitable Webhooks API](https://apis.io/apis/hospitable/hospitable-webhooks-api/) — Hospitable v2 webhooks push near-real-time event notifications (reservation.created, reservation.changed, property.created/changed/deleted/merged,…
+- [Hospitable Calendar API](https://apis.io/apis/hospitable/hospitable-calendar-api/) — Nightly availability, pricing, and restrictions per property.
+- [Hospitable Listings API](https://apis.io/apis/hospitable/hospitable-listings-api/) — Channel listings (Airbnb, Vrbo, Booking.com, direct) mapped to a property.
+- [Hospitable Messages API](https://apis.io/apis/hospitable/hospitable-messages-api/) — Guest-host message threads per reservation.
+- [Hospitable Properties API](https://apis.io/apis/hospitable/hospitable-properties-api/) — Vacation rental properties connected to the account.
+- [Hospitable Reservations API](https://apis.io/apis/hospitable/hospitable-reservations-api/) — Bookings across all connected channels.
+- [Hospitable Reviews API](https://apis.io/apis/hospitable/hospitable-reviews-api/) — Guest reviews and host responses.
+- [Hospitable User API](https://apis.io/apis/hospitable/hospitable-user-api/) — The authenticated Hospitable user.
 
-## APIs
+### Published properties
 
-### Hospitable Properties API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-List and retrieve the vacation rental properties connected to a Hospitable account, including address, capacity, amenities, house rules, photos, and the channel listings mapped to each property. The parent resource for calendar, reservations, and reviews.
+#### MCP servers (1)
 
-- **Human URL:** [https://developer.hospitable.com/docs/public-api-docs/qc4x36uhxinx3-get-properties](https://developer.hospitable.com/docs/public-api-docs/qc4x36uhxinx3-get-properties)
-- **Base URL:** `https://public.api.hospitable.com/v2`
+Model Context Protocol servers that expose the API to agents.
 
-#### Tags
+- [hospitable](https://apis.io/servers/hospitable/hospitable/)
 
-- Properties
-- Rentals
-- Inventory
+#### Agentic access (1)
 
-#### Properties
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- [Documentation](https://developer.hospitable.com/docs/public-api-docs/d862b3ee512e6-introduction)
-- [API Reference](https://developer.hospitable.com/docs/public-api-docs/qc4x36uhxinx3-get-properties)
-- [OpenAPI](openapi/hospitable-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/hospitable.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/hospitable.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Hospitable Agentic Access](https://apis.io/agentic-access/hospitable/hospitable-agentic-access/)
 
-### Hospitable Listings API
+#### Collections (7)
 
-Access the individual channel listings (Airbnb, Vrbo, Booking.com, and Hospitable direct) that map to a property, so a single Hospitable property can be reconciled across every OTA it is published on for cross-listing aggregation.
+Postman and Open Collection request collections.
 
-- **Human URL:** [https://developer.hospitable.com/docs/public-api-docs/d862b3ee512e6-introduction](https://developer.hospitable.com/docs/public-api-docs/d862b3ee512e6-introduction)
-- **Base URL:** `https://public.api.hospitable.com/v2`
+- [Hospitable Public API v2](https://apis.io/collections/hospitable/open-hospitable/)
+- [Hospitable Public Calendar API](https://apis.io/collections/hospitable/open-hospitable-calendar-api/)
+- [Hospitable Public Calendar Listings API](https://apis.io/collections/hospitable/open-hospitable-listings-api/)
+- [Hospitable Public Calendar Messages API](https://apis.io/collections/hospitable/open-hospitable-messages-api/)
+- [Hospitable Public Calendar Properties API](https://apis.io/collections/hospitable/open-hospitable-properties-api/)
+- [Hospitable Public Calendar Reservations API](https://apis.io/collections/hospitable/open-hospitable-reservations-api/)
+- [Hospitable Public Calendar User API](https://apis.io/collections/hospitable/open-hospitable-user-api/)
 
-#### Tags
+#### Security (2)
 
-- Listings
-- Channels
-- Airbnb
+Authentication, trust centre, and vulnerability disclosure.
 
-#### Properties
+- [Hospitable Authentication](https://apis.io/security/hospitable/hospitable-authentication/)
+- [Hospitable Domain Security](https://apis.io/security/hospitable/hospitable-domain-security/)
 
-- [Documentation](https://developer.hospitable.com/docs/public-api-docs/d862b3ee512e6-introduction)
-- [OpenAPI](openapi/hospitable-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/hospitable.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/hospitable.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Plans and pricing (1)
 
-### Hospitable Reservations API
+Published plans, tiers and prices.
 
-List and retrieve reservations across all connected channels, with guest details, check-in and check-out dates, status, platform, and financial breakdown (payout, host fees, taxes). Reservations can be filtered by property and date range.
+- [Hospitable Plans Pricing](https://apis.io/plans/hospitable/hospitable-plans-pricing/)
 
-- **Human URL:** [https://developer.hospitable.com/docs/public-api-docs/ih7nc1ovefrcs-get-reservations](https://developer.hospitable.com/docs/public-api-docs/ih7nc1ovefrcs-get-reservations)
-- **Base URL:** `https://public.api.hospitable.com/v2`
+#### Rate limits (1)
 
-#### Tags
+Published request limits.
 
-- Reservations
-- Bookings
-- Guests
+- [Hospitable Rate Limits](https://apis.io/rate-limits/hospitable/hospitable-rate-limits/)
 
-#### Properties
+#### FinOps (1)
 
-- [API Reference](https://developer.hospitable.com/docs/public-api-docs/ih7nc1ovefrcs-get-reservations)
-- [OpenAPI](openapi/hospitable-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/hospitable.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/hospitable.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+What the API costs to run, by operation.
 
-### Hospitable Messages API
+- [Hospitable Finops](https://apis.io/finops/hospitable/hospitable-finops/)
 
-Read the guest-host message thread for a reservation and send new messages back to the guest through Hospitable's unified inbox, which relays to the underlying channel (Airbnb, Vrbo, Booking.com, or direct).
+## Where to find this API
 
-- **Human URL:** [https://developer.hospitable.com/docs/public-api-docs/n6jr1z9iwhm8w-get-reservation-messages](https://developer.hospitable.com/docs/public-api-docs/n6jr1z9iwhm8w-get-reservation-messages)
-- **Base URL:** `https://public.api.hospitable.com/v2`
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-#### Tags
-
-- Messaging
-- Inbox
-- Guest Communication
-
-#### Properties
-
-- [API Reference](https://developer.hospitable.com/docs/public-api-docs/n6jr1z9iwhm8w-get-reservation-messages)
-- [OpenAPI](openapi/hospitable-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/hospitable.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/hospitable.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Hospitable Calendar API
-
-Read a property's calendar of nightly availability, prices, and minimum-stay restrictions, and (with write access) update pricing and availability per date, which Hospitable syncs out to the connected channels.
-
-- **Human URL:** [https://developer.hospitable.com/docs/public-api-docs/d862b3ee512e6-introduction](https://developer.hospitable.com/docs/public-api-docs/d862b3ee512e6-introduction)
-- **Base URL:** `https://public.api.hospitable.com/v2`
-
-#### Tags
-
-- Calendar
-- Availability
-- Pricing
-
-#### Properties
-
-- [Documentation](https://developer.hospitable.com/docs/public-api-docs/d862b3ee512e6-introduction)
-- [OpenAPI](openapi/hospitable-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/hospitable.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/hospitable.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Hospitable Reviews API
-
-Retrieve guest reviews for a property from Airbnb and direct bookings, including rating, category scores, and public content, and respond to reviews on behalf of the host.
-
-- **Human URL:** [https://developer.hospitable.com/docs/public-api-docs/d862b3ee512e6-introduction](https://developer.hospitable.com/docs/public-api-docs/d862b3ee512e6-introduction)
-- **Base URL:** `https://public.api.hospitable.com/v2`
-
-#### Tags
-
-- Reviews
-- Ratings
-- Reputation
-
-#### Properties
-
-- [Documentation](https://developer.hospitable.com/docs/public-api-docs/d862b3ee512e6-introduction)
-- [OpenAPI](openapi/hospitable-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/hospitable.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/hospitable.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Hospitable Webhooks API
-
-Hospitable v2 webhooks push near-real-time event notifications (`reservation.created`, `reservation.changed`, `property.created/changed/deleted/merged`, `message.created`, `review.created`) as JSON POST requests to a host-configured endpoint. Webhooks are configured in the dashboard (Apps > Webhooks); delivery is retried up to five times with exponential back-off.
-
-- **Human URL:** [https://developer.hospitable.com/docs/public-api-docs/k4ctofvqu0w8g-hospitable-api-v2](https://developer.hospitable.com/docs/public-api-docs/k4ctofvqu0w8g-hospitable-api-v2)
-- **Base URL:** `https://public.api.hospitable.com/v2`
-
-#### Tags
-
-- Webhooks
-- Events
-- Notifications
-
-#### Properties
-
-- [Documentation](https://developer.hospitable.com/docs/public-api-docs/k4ctofvqu0w8g-hospitable-api-v2)
-- [Documentation](https://help.hospitable.com/en/articles/10008203-webhooks-for-reservations-properties-messages-and-reviews)
-
-## Common Properties
-
-- [LinkedIn](https://www.linkedin.com/company/hospitable)
 - [Website](https://hospitable.com/)
 - [Documentation](https://developer.hospitable.com/docs/public-api-docs/)
-- [Plans](plans/hospitable-plans-pricing.yml)
-- [Rate Limits](rate-limits/hospitable-rate-limits.yml)
-- [Fin Ops](finops/hospitable-finops.yml)
+- [Blog](https://hospitable.com/blog)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 27.2** — thin · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 68.3 |
+| Contract quality | 50.2 |
+| Contract governance | 0.0 |
+| Operational transparency | 7.9 |
+| Developer ergonomics | 32.1 |
+| Access clarity | 7.9 |
+
+**Agent readiness 42.4** — agent-ready (gated down from agent-native)
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | verified |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | verified |
+| Dynamic Client Registration | yes |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 11.8** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/hospitable/](https://apis.io/providers/hospitable/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Hospitable: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/hospitable/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
